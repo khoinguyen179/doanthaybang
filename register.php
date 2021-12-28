@@ -36,9 +36,9 @@
       }
       spl_autoload_register("myautoload");
       $db=new Db();
-      $search 	= postIndex("search");
+      
       $sachDB=new Sach();
-      $sachs=$sachDB->hot();
+      
   ?>
         <!-- Top bar Start -->
         <div class="top-bar">
@@ -70,7 +70,7 @@
                         <div class="navbar-nav mr-auto">
                             <a href="index.html" class="nav-item nav-link">Home</a>
                             <a href="product-list.html" class="nav-item nav-link">Products</a>
-                            <a href="product-detail.html" class="nav-item nav-link">Product Detail</a>
+                            
                             <a href="cart.html" class="nav-item nav-link">Cart</a>
                             <a href="checkout.html" class="nav-item nav-link">Checkout</a>
                             <a href="my-account.html" class="nav-item nav-link">My Account</a>
@@ -207,7 +207,7 @@
  $SDT   = addslashes($_POST['txtSDT']);
  $repass   = addslashes($_POST['txtrepassword']);
  $dc   = addslashes($_POST['txtdc']);
- $sachDB=new Sach();
+ 
  //Kiểm tra người dùng đã nhập liệu đầy đủ chưa
  if (!$username || !$password || !$email || !$repass || !$SDT || !$dc)
  {
@@ -216,7 +216,7 @@
  }
        
      // Mã khóa mật khẩu
-     $password = md5($password);
+    $password = md5($password);
     $repass=md5($repass);
  //Kiểm tra tên đăng nhập này đã có người dùng chưa
  $kq=$db->exeQuery("select * from khachhang where tenkh= '$username' ");
@@ -265,8 +265,7 @@
                 $error = "Lỗi thêm";
                 if ($n>0) echo "<script type='text/javascript'>alert('$message');</script>";
                 else echo  "<script type='text/javascript'>alert('$error');</script>";
-
-                       ?>
+            ?>
  
 
         <!-- Login End -->

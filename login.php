@@ -1,3 +1,68 @@
+<?php
+  
+  
+  include "config/function.php";
+  
+      include "config/config.php";
+      function myautoload($classname)
+      {
+          include "classes/".$classname.".class.php";
+      }
+      spl_autoload_register("myautoload");
+      $db=new Db();
+      $search 	= postIndex("search");
+      $sachDB=new Sach();
+      $sachs=$sachDB->hot();
+  ?>
+<?php
+//Khai báo sử dụng session
+session_start();
+ 
+//Khai báo utf-8 để hiển thị được tiếng việt
+header('Content-Type: text/html; charset=UTF-8');
+ 
+//Xử lý đăng nhập
+if (isset($_POST['dangnhap'])) 
+{
+    //Kết nối tới database
+    
+     
+    //Lấy dữ liệu nhập vào
+    $username = addslashes($_POST['email']);
+    $password = addslashes($_POST['password']);
+    
+    //Kiểm tra đã nhập đủ tên đăng nhập với mật khẩu chưa
+    if (!$username || !$password) {
+        echo "Vui lòng nhập đầy đủ email và mật khẩu. <a href='javascript: history.go(-1)'>Trở lại</a>";
+        exit;
+    }
+     
+    // mã hóa pasword
+    $password = md5($password);
+     
+    //Kiểm tra tên đăng nhập có tồn tại không
+    $kq=$db->exeQuery("select email, matkhau FROM khachhang WHERE email='$username'");
+    if ($kq == null) {
+        echo "Tên đăng nhập này không tồn tại. Vui lòng kiểm tra lại. <a href='javascript: history.go(-1)'>Trở lại</a>";
+        exit;
+    }
+     
+    
+    foreach($kq as $kqs)
+    {
+    //So sánh 2 mật khẩu có trùng khớp hay không
+    if ($password != $kqs['matkhau']) {
+        echo "Mật khẩu không đúng. Vui lòng nhập lại. <a href='javascript: history.go(-1)'>Trở lại</a>";
+        exit;
+    }
+    }
+    //Lưu tên đăng nhập
+    $_SESSION['email'] = $username;
+    echo "Xin chào " . $username . ". Bạn đã đăng nhập thành công. <a href='index.php'>Về trang chủ</a>";
+    die();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -134,14 +199,15 @@
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="login-form">
+                        <form action='login.php?do=login' method='POST'>
                             <div class="row">
                                 <div class="col-md-6">
                                     <label>E-mail / Username</label>
-                                    <input class="form-control" type="text" placeholder="E-mail / Username">
+                                    <input class="form-control" type="text" name="email" placeholder="E-mail / Username">
                                 </div>
                                 <div class="col-md-6">
                                     <label>Password</label>
-                                    <input class="form-control" type="text" placeholder="Password">
+                                    <input class="form-control" type="password" name="password" placeholder="Password">
                                 </div>
                                 <div class="col-md-12">
                                     <div class="custom-control custom-checkbox">
@@ -150,9 +216,10 @@
                                     </div>
                                 </div>
                                 <div class="col-md-12">
-                                    <button class="btn">Submit</button>
+                                    <button type='submit' name="dangnhap" value='Đăng nhập' class="btn">Đăng nhập</button>
                                 </div>
                             </div>
+                        </form>
                         </div>
                     </div>
                 </div>

@@ -16,7 +16,7 @@ if(isset($_GET['loai']))
 //$tongSach=$tam[0][0];
 $page=isset($_GET['p'])?$_GET['p']:1;
 $bd=($page-1)*SACH_1_TRANG;
-if(isset($_GET['loai']))
+if(isset($_GET['proname']))
 { 
     //$sachs=$db->exeQuery("select tensp,dongia,luotxem,hinh from sanpham where maloai=? limit $bd,".SACH_1_TRANG,array($_GET['loai']));
     $sachs=$db->exeQuery("select * from sanpham where tensp like '%$tieude%'  ");
