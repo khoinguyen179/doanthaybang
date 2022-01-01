@@ -14,10 +14,10 @@ include_once("../classes/Donhang.class.php");
 $donhangDB=new Donhang;
 if(isset($_REQUEST['ac']) && $_REQUEST['ac']=="duyet")
 {
-	if($donhangDB->duyet(1)>0)
-		echo "Duyệt thành công";
+	if($donhangDB->duyet(1,$_GET['mdh'])>0)
+		echo "<script type='text/javascript'>alert('Duyệt thành công');</script>";
 	else
-		echo "Duyệt không thành công";
+  echo "<script type='text/javascript'>alert('Duyệt không thành công');</script>";
 }
 
 

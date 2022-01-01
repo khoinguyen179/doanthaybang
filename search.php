@@ -1,18 +1,6 @@
 <?php
-if(isset($_POST['search_button'])){
-
-$tukhoa = $_POST['search_product'];
-
-$title = $tukhoa;    
-$sql_product = $sachdb->search($title);		
-
-
-}		
-
-//$tongSach=$tam[0][0];
-$page=isset($_GET['p'])?$_GET['p']:1;
-$bd=($page-1)*SACH_1_TRANG;
-
+$tieude = getIndex("proname");	
+$sql_product=$db->exeQuery("select * from sanpham where tensp like '%$tieude%'" );
 foreach($sql_product as $sp)
 {
     $num=$sp['dongia'];

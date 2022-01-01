@@ -11,11 +11,7 @@ if (!defined("ROOT"))
 	{
 		include ROOT."/module/info/index.php";
 	}
-	elseif ($mod=="product")
-	{
-		include ROOT."/module/product/index.php";
-		
-	}
+	
 	elseif ($mod=="new")
 	{
 		include ROOT."/new.php";

@@ -14,10 +14,10 @@ include_once("../classes/Donhang.class.php");
 $donhangDB=new Donhang;
 if(isset($_REQUEST['ac']) && $_REQUEST['ac']=="duyet")
 {
-	if($donhangDB->duyet(0)>0)
+	if($donhangDB->duyet(0,$_GET['mdh'])>0)
 		echo "Bỏ duyệt thành công";
 	else
-		echo "Duyệt không thành công";
+		echo "Bỏ duyệt không thành công";
 }
 
 
@@ -64,7 +64,7 @@ $dsdh=$donhangDB->daduyet();
             <td><?php echo $donhang['diachinhanhang'] ?></td>
             <td><?php echo $donhang['trangthai'] ?></td>
             <td><?php echo $donhang['ghichucuakh'] ?></td>
-            <td><?php echo $donhang['tongtien'] ?></td>
+                
               <td><a href="index.php?mo=dh2&ac=duyet&mdh=<?php echo $donhang['madh'] ?>"><img src="../img/edit-icon.gif" width="16" height="16" alt="" /></a></td>
           </tr>
           <?php 

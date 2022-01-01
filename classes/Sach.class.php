@@ -74,10 +74,10 @@ class Sach extends Db{
 		$sql="INSERT INTO sanpham VALUES (?,?,?,?,?,?,?,?,?,?)";
 		return $this->exeNoneQuery($sql,array($ma,$ten,$donvitinh,$dongia,$hinh,$stttonkho,$maloai,$xuatsu,$luotxem,$thongtin));
 	}
-	public function sua($ma,$ten,$donvitinh,$dongia,$hinh,$luotxem,$stttonkho,$maloai,$xuatsu,$thongtin)
+	public function sua($ma,$ten,$donvitinh,$dongia,$hinh,$stttonkho,$maloai,$xuatsu,$luotxem,$thongtin)
 	{
-		$sql="update loai set tenloai=?,tensp=?,donvitinh=?,dongia=?,hinh=?,luotxem=?,stttonkho=?,maloai=?,xuatsu=?,thongtin=? where maloai=?";
-		return $this->exeNoneQuery($sql,array($ten,$donvitinh,$dongia,$hinh,$luotxem,$stttonkho,$maloai,$xuatsu,$thongtin,$ma));
+		$sql="update sanpham set tensp=?,donvitinh=?,dongia=?,hinh=?,stttonkho=?,maloai=?,xuatsu=?,luotxem=?,thongtin=? where masp=?";
+		return $this->exeNoneQuery($sql,array($ten,$donvitinh,$dongia,$hinh,$stttonkho,$maloai,$xuatsu,$luotxem,$thongtin,$ma));
 	}
 	public function xoa($ma)
 	{

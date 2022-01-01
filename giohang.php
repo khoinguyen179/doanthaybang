@@ -56,14 +56,21 @@
  }elseif(isset($_POST['thanhtoan'])){
  	
  }elseif(isset($_POST['thanhtoandangnhap'])){
+	$sql_lay_giohang = $db->exeQuery("SELECT * FROM tbl_giohang ORDER BY giohang_id DESC");
+	$i = 0;
+	$total = 0;
+	foreach($sql_lay_giohang as $row_fetch_giohang){ 
+
+		$subtotal = $row_fetch_giohang['soluong'] * $row_fetch_giohang['giasanpham'];
+		$total+=$subtotal;
+		$i++;}
 	$name = $_POST['name'];
  	$phone = $_POST['phone'];
  	$email = $_POST['email'];
  	$note = $_POST['note'];
  	$address = $_POST['address'];
- 	$giaohang = $_POST['giaohang'];
  	$emailkhachhang = $_SESSION['email'];
-	 $random=rand(0,9999);	
+	$random=rand(0,9999);	
  	$madonhang = "dh".$random;
  	for($i=0;$i<count($_POST['thanhtoan_product_id']);$i++){
 	 		$sanpham_id = $_POST['thanhtoan_product_id'][$i];
@@ -141,28 +148,14 @@
 							<?php
 							} 
 							?>
-              <tr>
+              				<tr>
 								<td colspan="7">Tổng tiền : <?php echo number_format($total).'vnđ' ?></td>
-
 							</tr>
-							
-							
-						</tbody>
-					</table>
-          						<input type="submit"  value="Cập nhật giỏ hàng" name="capnhatsoluong"  class="capnhat">
-								<?php 
-								$sql_giohang_select = $db->exeQuery("SELECT * FROM tbl_giohang");
-
-								if(isset($_SESSION['email']) && $sql_giohang_select!=null){
-									foreach($sql_giohang_select as $row_1){
-								?>
-								
-								<input type="hidden" name="thanhtoan_product_id[]" value="<?php echo $row_1['sanpham_id'] ?>">
-								<input type="hidden" name="thanhtoan_soluong[]" value="<?php echo $row_1['soluong'] ?>">
-								<?php 
-								}
-								?>
-								<div class="checkout-left">
+								</tbody>
+							</table>
+							<input type="submit"  value="Cập nhật giỏ hàng" name="capnhatsoluong"  class="capnhat">
+          					</form>
+							<div class="checkout-left">
 				<div class="address_form_agile mt-sm-5 mt-4">
 					<h4 class="mb-sm-4 mb-3">Thêm địa chỉ giao hàng</h4>
 					<form action="" method="post" class="creditly-card-form agileinfo_form">
@@ -192,21 +185,25 @@
 									<div class="controls form-group">
 										<textarea style="resize: none;" class="form-control" placeholder="Ghi chú" name="note" required=""></textarea>  
 									</div>
-									<div class="controls form-group">
-										<select class="option-w3ls" name="giaohang">
-											<option>Chọn hình thức giao hàng</option>
-											<option value="1">Thanh toán ATM</option>
-											<option value="0">Nhận tiền tại nhà</option>
-											
-
-										</select>
-									</div>
 								</div>
-								<input type="submit" class="btn btn-primary" value="Thanh toán giỏ hàng" name="thanhtoandangnhap">
-		
-								<?php
-								} 
-								?>
+								
+								<?php 
+								$sql_giohang_select = $db->exeQuery("SELECT * FROM tbl_giohang");
+
+								if(isset($_SESSION['email']) && $sql_giohang_select!=null){
+									foreach($sql_giohang_select as $row_1){
+											?>
+											
+											<input type="hidden" name="thanhtoan_product_id[]" value="<?php echo $row_1['sanpham_id'] ?>">
+											<input type="hidden" name="thanhtoan_soluong[]" value="<?php echo $row_1['soluong'] ?>">
+											<?php 
+										}
+											?>
+											<input type="submit" class="btn btn-primary" value="Thanh toán giỏ hàng" name="thanhtoandangnhap">
+					
+											<?php
+											} 
+											?>
 								
 								</td>
 							

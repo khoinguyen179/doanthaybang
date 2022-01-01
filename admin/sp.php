@@ -10,11 +10,31 @@ function xoa(ml)
 }
 </script>
 <?php
-include_once("../classes/Sach.class.php");
-$spDB=new Sach;
-if(isset($_POST['btnAdd']))
-{
-	if($spDB->them($_POST['txtmasp'],$_POST['txttensp'],$_POST['txtdonvitinh'],$_POST['txtdongia'],$_POST['filehinh'],$_POST['txttonkho'],$_POST['txtmaloai'],$_POST['txtxuatsu'],$_POST['txtluotxem'],$_POST['txtthongtin'])>0)
+
+  include_once("../classes/Sach.class.php");
+  $spDB=new Sach;
+  if(isset($_POST['btnAdd']))
+  {
+    $arrImg = array("image/png", "image/jpeg", "image/bmp");
+  $err = "";
+  $errFile = $_FILES["filehinh"]["error"];
+  if ($errFile<0)
+    $err .="Lỗi file hình <br>";
+  else
+  {
+	$type = $_FILES["filehinh"]["type"];
+	if (!in_array($type, $arrImg))
+		$err .="Không phải file hình <br>";
+	else
+	{	$temp = $_FILES["filehinh"]["tmp_name"];
+		$name = $_FILES["filehinh"]["name"];
+		if (!move_uploaded_file($temp, "../img/sp"))
+			$err .= "Không thể lưu file<br>";
+		
+	}
+}
+$image = implode("",$_FILES["filehinh"]["name"]);
+	if($spDB->them($_POST['txtmasp'],$_POST['txttensp'],$_POST['txtdonvitinh'],$_POST['txtdongia'],$image,$_POST['txttonkho'],$_POST['txtmaloai'],$_POST['txtxuatsu'],$_POST['txtluotxem'],$_POST['txtthongtin'])>0)
 		echo "Thêm thành công";
 	else
 		echo "Thêm không thành công";
@@ -49,15 +69,7 @@ $dssp=$spDB->tatCa();
             <div class="container-fluid">
                 <div class="row align-items-center">
                   <div class="col-md-6">
-                  <div class="search">
-        <label>
-        <input type="text" name="textfield" />
-        </label>
-        <label>
-        <input type="submit" name="Submit" value="Search" />
-        </label>
-      </div>
-      	<form action="" method="post">
+      	<form action="" method="post" enctype="multipart/form-data">
         	<input type="hidden" name="mo" value="sp" />
                   <div class="table" style="width:500px !important;"> <img src="img/bg-th-left.gif" width="8" height="7" alt="" class="left" /> <img src="img/bg-th-right.gif" width="7" height="7" alt="" class="right" />
         <table class="listing form" cellpadding="0" cellspacing="0" width="400">
@@ -82,7 +94,7 @@ $dssp=$spDB->tatCa();
           </tr>
           <tr class="bg">
             <td class="first" width="172"><strong>Hình</strong></td>
-            <td class="last"><input type="file" class="text" name="filehinh" id="filehinh" value="<?php if(isset($spsua[0]['masp'])) echo $spsua[0]['hinh']; ?>" required/></td>
+            <td class="last"><input type="file" class="text" name="filehinh[]" id="filehinh" value="<?php if(isset($spsua[0]['masp'])) echo $spsua[0]['hinh']; ?>" required/></td>
           </tr>
           <tr class="bg">
             <td class="first" width="172"><strong>STT tồn kho</strong></td>
@@ -98,7 +110,7 @@ $dssp=$spDB->tatCa();
           </tr>
           <tr class="bg">
             <td class="first" width="172"><strong>Lượt xem</strong></td>
-            <td class="last"><input type="text" class="text" name="txtluotxem" id="txtluotxem" value="<?php if(isset($spsua[0]['masp'])) echo $spsua[0]['tensp']; ?>" required/></td>
+            <td class="last"><input type="text" class="text" name="txtluotxem" id="txtluotxem" value="<?php if(isset($spsua[0]['masp'])) echo $spsua[0]['luotxem']; ?>" required/></td>
           </tr>
           <tr class="bg">
             <td class="first" width="172"><strong>Thông tin</strong></td>

@@ -41,6 +41,7 @@
     spl_autoload_register("myautoload");
     $db=new Db();
     $search 	= postIndex("search");
+
     ?>
         <!-- Top bar Start -->
         <div class="top-bar">
@@ -113,12 +114,25 @@
                     </div>
                     <div class="col-md-6">
                         <div class="search">
-                        <form action="product-list.php" method="POST">
-                            <input type="hidden" name="mod" value="search" />
-                            <input  type="text" placeholder="Search" name="search_product" >
-                            <button  type="submit" name="search_button"><i class="fa fa-search"></i></button>
+                        <div align="center">
+                            <form action="product-list.php?mod=search&proname=<?php echo $search;?>" method="post">
+                                <input type="text" name="search" >
+                                <button><i class="fa fa-search" type="submit" name="ok"></i></button>
                             </form>
                         </div>
+                        </div>
+                        <?php
+                        if (isset($_POST['ok'])) 
+                        {
+                            if (empty($search)) {
+                                echo "Yeu cau nhap du lieu vao o trong";
+                            } 
+                            else{
+                                include "mod.php";
+                            }
+                        }
+
+                        ?>
                     </div>
                     <div class="col-md-3">
                         <div class="user">
@@ -126,7 +140,7 @@
                             <a id="cartinfo"><?php if(isset($_SESSION['cart'])) echo count($_SESSION['cart']);?></a>
                             <a href="cart.php" class="btn cart" id="cart-box">
                                 <i class="fa fa-shopping-cart"></i>
-                                <span>(0)</span>
+                                <span></span>
                             </a>
                         </div>
                     </div>

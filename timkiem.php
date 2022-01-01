@@ -23,30 +23,44 @@
         <!-- Template Stylesheet -->
         <link href="css/style.css" rel="stylesheet">
     </head>
-
+    <style>
+    input.button {
+    border: 0;
+    background: unset;
+    color: unset;
+}
+</style>
     <body>
     <?php
-        include "config/function.php";
-    include "config/config.php";
+  
+  
+    if (isset ($_POST [ 'timkiem'])) {
+    $key = addslashes ($_POST ['khóa_tìm_kiếm']);
+    $sql = "SELECT * FROM sanpham WHERE tensp LIKE '%$key%' )";
+    $KQ = $db->exeQuery($sql);
+    include "config/function.php";
+	include "config/config.php";
     function myautoload($classname)
     {
         include "classes/".$classname.".class.php";
     }
     spl_autoload_register("myautoload");
     $db=new Db();
-    $search 	= postIndex("search");
-    ?>
+    
+    $sachDB=new Sach();
+    
+?>
         <!-- Top bar Start -->
         <div class="top-bar">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-sm-6">
                         <i class="fa fa-envelope"></i>
-                        support@email.com
+                        knt@email.com
                     </div>
                     <div class="col-sm-6">
                         <i class="fa fa-phone-alt"></i>
-                        +012-345-6789
+                        +079-669-6969
                     </div>
                 </div>
             </div>
@@ -63,22 +77,22 @@
                     </button>
 
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
-                    <div class="navbar-nav mr-auto">
-                            <a href="index.php" class="nav-item nav-link active">Home</a>
-                            <a href="product-list.php" class="nav-item nav-link">Products</a>
+                        <div class="navbar-nav mr-auto">
+                            <a href="index.php" class="nav-item nav-link">Home</a>
+                            <a href="product-list.php" class="nav-item nav-link active">Products</a>
+                             
                             <a href="cart.php" class="nav-item nav-link">Cart</a>
                             <a href="my-account.php" class="nav-item nav-link">My Account</a>
                             <div class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">More Pages</a>
                                 <div class="dropdown-menu">
-                                    <a href="login.php" class="dropdown-item">Login</a>
-                                    <a href="register.php" class="dropdown-item">Register</a>
+                                    <a href="wishlist.html" class="dropdown-item">Wishlist</a>
+                                    <a href="login.html" class="dropdown-item">Login & Register</a>
                                     <a href="contact.html" class="dropdown-item">Contact Us</a>
                                 </div>
                             </div>
                         </div>
-                       
-                                <div class="navbar-nav ml-auto">
+                        <div class="navbar-nav ml-auto">
                                 <?php 
                                 if (isset($_SESSION['email']) && $_SESSION['email']){
                                     ?><a class="nav-item nav-link"> Xin chào <?php echo $_SESSION['email']."<br/>";?> </a>
@@ -107,17 +121,15 @@
                     </div>
                     <div class="col-md-6">
                         <div class="search">
-                            <input type="text" placeholder="Search">
-                            <button><i class="fa fa-search"></i></button>
+                        <form method = “post” action = “timkiem.php”>
+                        <input type = “text” giữ chỗ name = “Nhập từ khóa tìm kiếm” = “khóa_tìm_kiếm”>
+                        <button type = “submit” name = “TÌM”> Tìm kiếm </ button>
+                        </ form>               
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="user">
-                            <a href="wishlist.html" class="btn wishlist">
-                                <i class="fa fa-heart"></i>
-                                <span>(0)</span>
-                            </a>
-                            <a href="cart.html" class="btn cart">
+                            <a href="cart.php" class="btn cart">
                                 <i class="fa fa-shopping-cart"></i>
                                 <span>(0)</span>
                             </a>
@@ -126,7 +138,7 @@
                 </div>
             </div>
         </div>
-        <!-- Bottom Bar End --> 
+        <!-- Bottom Bar End -->  
         
         <!-- Breadcrumb Start -->
         <div class="breadcrumb-wrap">
@@ -134,100 +146,148 @@
                 <ul class="breadcrumb">
                     <li class="breadcrumb-item"><a href="#">Home</a></li>
                     <li class="breadcrumb-item"><a href="#">Products</a></li>
-                    <li class="breadcrumb-item active">My Account</li>
+                    <li class="breadcrumb-item active">Product List</li>
                 </ul>
             </div>
         </div>
         <!-- Breadcrumb End -->
         
-        <!-- My Account Start -->
-        
-        <div class="my-account">
+        <!-- Product List Start -->
+        <div class="product-view">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-md-3">
-                        <div class="nav flex-column nav-pills" role="tablist" aria-orientation="vertical">
-                        <a class="nav-link active" id="account-nav" data-toggle="pill" href="#account-tab" role="tab"><i class="fa fa-user"></i>Account Details</a>
-                            <a class="nav-link" id="orders-nav" data-toggle="pill" href="#orders-tab" role="tab"><i class="fa fa-shopping-bag"></i>Orders</a>
-                            <a class="nav-link" id="payment-nav" data-toggle="pill" href="#payment-tab" role="tab"><i class="fa fa-credit-card"></i>Payment Method</a>
-                            <a class="nav-link" id="address-nav" data-toggle="pill" href="#address-tab" role="tab"><i class="fa fa-map-marker-alt"></i>address</a>
-                            
-                            <a class="nav-link" href="logout.php"><i class="fa fa-sign-out-alt"></i>Logout</a>
-                        </div>
-                    </div>
-                    <div class="col-md-9">
-                        <div class="tab-content">
-                        <?php include "account-detail.php";?>
-                            <div class="tab-pane fade" id="orders-tab" role="tabpanel" aria-labelledby="orders-nav">
-                                <div class="table-responsive">
-                                    <table class="table table-bordered">
-                                        <thead class="thead-dark">
-                                        <tr>
-                                                <th>Mã đơn hàng</th>
-                                                <th>Tên sản phẩm</th>
-                                                <th>Số lượng</th>
-                                                <th>Ngày đặt</th>
-                                                <th>Tổng tiền</th>
-                                                <th>Trạng thái</th>
-                                                
-                                            </tr>
-                                        </thead>                                        
-                                        <tbody>
-                                        <?php 
-                                        if (isset($_SESSION['email']) && $_SESSION['email']){
-                                        $email= $_SESSION['email'];}
-                                        else
-                                            $email=null;
-                                        $sql_donhang = $db->exeQuery("Select * from chitietdonhang inner join donhang on chitietdonhang.madh=donhang.madh	inner JOIN sanpham on chitietdonhang.masp=sanpham.masp where donhang.email='$email' ");    
-                                        foreach($sql_donhang as $donhang){
-                                            $num=$donhang['dongia'];
-                                            $formattedNum = number_format($num);
-                                            if ($donhang['trangthai']==0) $status="Chưa được duyệt"; 
-                                            else $status = "Đã được duyệt";?>
-                                            <tr>
-                                                <td><?php echo $donhang['madh'];?></td>
-                                                <td><?php echo $donhang['tensp'];?></td>
-                                                <td><?php echo $donhang['soluong'];?></td>
-                                                <td><?php echo $donhang['ThoiDiemDatHang'];?></td>
-                                                <td><?php echo number_format($donhang['tongtien']);?>đ</td>
-                                                <td><?php echo $status;?></td>
-                                                <td><button class="btn">View</button></td>
-                                            </tr>
-                                            <?php }?>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                            <div class="tab-pane fade" id="payment-tab" role="tabpanel" aria-labelledby="payment-nav">
-                                <h4>Payment Method</h4>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. In condimentum quam ac mi viverra dictum. In efficitur ipsum diam, at dignissim lorem tempor in. Vivamus tempor hendrerit finibus. Nulla tristique viverra nisl, sit amet bibendum ante suscipit non. Praesent in faucibus tellus, sed gravida lacus. Vivamus eu diam eros. Aliquam et sapien eget arcu rhoncus scelerisque.
-                                </p> 
-                            </div>
-                            <div class="tab-pane fade" id="address-tab" role="tabpanel" aria-labelledby="address-nav">
-                                <h4>Address</h4>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <h5>Payment Address</h5>
-                                        <p>123 Payment Street, Los Angeles, CA</p>
-                                        <p>Mobile: 012-345-6789</p>
-                                        <button class="btn">Edit Address</button>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <h5>Shipping Address</h5>
-                                        <p>123 Shipping Street, Los Angeles, CA</p>
-                                        <p>Mobile: 012-345-6789</p>
-                                        <button class="btn">Edit Address</button>
+                    <div class="col-lg-8">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="product-view-top">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                        <div class="search">
+                                        <form action="?mod=search&search_product=<?php echo $ten; ?>" method="post">
+                                            <input  type="text" placeholder="Search" name="search">
+                                            <button  type="submit" ><i class="fa fa-search"></i></button>
+                                            </form>
+                                        </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="product-short">
+                                                <div class="dropdown">
+                                                    <div class="dropdown-toggle" data-toggle="dropdown">Product short by</div>
+                                                    <div class="dropdown-menu dropdown-menu-right">
+                                                        <a href="#" class="dropdown-item">Newest</a>
+                                                        <a href="#" class="dropdown-item">Popular</a>
+                                                        <a href="#" class="dropdown-item">Most sale</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="product-price-range">
+                                                <div class="dropdown">
+                                                    <div class="dropdown-toggle" data-toggle="dropdown">Product price range</div>
+                                                    <div class="dropdown-menu dropdown-menu-right">
+                                                        <a href="#" class="dropdown-item">$0 to $50</a>
+                                                        <a href="#" class="dropdown-item">$51 to $100</a>
+                                                        <a href="#" class="dropdown-item">$101 to $150</a>
+                                                        <a href="#" class="dropdown-item">$151 to $200</a>
+                                                        <a href="#" class="dropdown-item">$201 to $250</a>
+                                                        <a href="#" class="dropdown-item">$251 to $300</a>
+                                                        <a href="#" class="dropdown-item">$301 to $350</a>
+                                                        <a href="#" class="dropdown-item">$351 to $400</a>
+                                                        <a href="#" class="dropdown-item">$401 to $450</a>
+                                                        <a href="#" class="dropdown-item">$451 to $500</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
+                            </div> 
+                                    <?php include "tk.php"; ?>
+                        <!-- Pagination Start -->
+                        
+                        <!-- Pagination Start -->
+                    </div>           
+                    
+                    <!-- Side Bar Start -->
+                    <div class="col-lg-4 sidebar">
+                        <div class="sidebar-widget category">
+                            <h2 class="title">Category</h2>
+                            <nav class="navbar bg-light">
+                                <ul class="navbar-nav">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="product-list.php?mod=new&loai=ca"><i class="fas fa-fish"></i>Cá, tép cảnh</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="product-list.php?mod=new&loai=den"><i class="fas fa-lightbulb"></i>Đèn thủy sinh</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="product-list.php?mod=new&loai=cay"><i class="fa fa-seedling"></i>Cây thủy sinh</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="product-list.php?mod=new&loai=ms"><i class="fa fa-sun"></i>Máy sủi oxi, bơm, máy sưởi</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="product-list.php?mod=new&loai=pn"><i class="fa fa-cubes"></i>Máy lọc, vật liệu lọc</a>
+                                </li>
+                                </ul>
+                            </nav>
+                        </div>
+                        
+                        <div class="sidebar-widget widget-slider">
+                            <div class="sidebar-slider normal-slider">
+                                <?php include "slider.php";?>
                             </div>
-                            
+                        </div>
+                        
+                        <div class="sidebar-widget brands">
+                            <h2 class="title">Our Brands</h2>
+                            <ul>
+                                <li><a href="#">Nulla </a><span>(45)</span></li>
+                                <li><a href="#">Curabitur </a><span>(34)</span></li>
+                                <li><a href="#">Nunc </a><span>(67)</span></li>
+                                <li><a href="#">Ullamcorper</a><span>(74)</span></li>
+                                <li><a href="#">Fusce </a><span>(89)</span></li>
+                                <li><a href="#">Sagittis</a><span>(28)</span></li>
+                            </ul>
+                        </div>
+                        
+                        <div class="sidebar-widget tag">
+                            <h2 class="title">Tags Cloud</h2>
+                            <a href="#">Lorem ipsum</a>
+                            <a href="#">Vivamus</a>
+                            <a href="#">Phasellus</a>
+                            <a href="#">pulvinar</a>
+                            <a href="#">Curabitur</a>
+                            <a href="#">Fusce</a>
+                            <a href="#">Sem quis</a>
+                            <a href="#">Mollis metus</a>
+                            <a href="#">Sit amet</a>
+                            <a href="#">Vel posuere</a>
+                            <a href="#">orci luctus</a>
+                            <a href="#">Nam lorem</a>
                         </div>
                     </div>
+                    <!-- Side Bar End -->
                 </div>
             </div>
         </div>
-        <!-- My Account End -->
+        <!-- Product List End -->  
+        
+        <!-- Brand Start -->
+        <div class="brand">
+            <div class="container-fluid">
+                <div class="brand-slider">
+                <div class="brand-item"><img src="img/logo1.png" alt=""></div>
+                    <div class="brand-item"><img src="img/logo2.jpg" alt=""></div>
+                    <div class="brand-item"><img src="img/logo3.jpg" alt=""></div>
+                    <div class="brand-item"><img src="img/logo4.png" alt=""></div>
+                    <div class="brand-item"><img src="img/logo5.png" alt=""></div>
+                    <div class="brand-item"><img src="img/logo6.jpg" alt=""></div>
+                </div>
+            </div>
+        </div>
+        <!-- Brand End -->
         
         <!-- Footer Start -->
         <div class="footer">

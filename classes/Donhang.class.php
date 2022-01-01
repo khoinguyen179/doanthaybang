@@ -11,10 +11,10 @@ class Donhang extends Db{
 		$sql="select * from donhang where trangthai=1";
 		return $this->exeQuery($sql);	
 	}
-	public function duyet($status)
+	public function duyet($status,$ma)
 	{	
-		$sql="update donhang set trangthai=? ";
-		return $this->exeNoneQuery($sql,array($status));
+		$sql="update donhang set trangthai=? where madh=? ";
+		return $this->exeNoneQuery($sql,array($status,$ma));
 	}
 	public function thongTin1Don($ma)
 	{

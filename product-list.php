@@ -43,9 +43,9 @@
     }
     spl_autoload_register("myautoload");
     $db=new Db();
-    //$search 	= postIndex("search");
+    $search 	= postIndex("search");
     $sachDB=new Sach();
-    $sachs=$sachDB->hot();
+    
 ?>
         <!-- Top bar Start -->
         <div class="top-bar">
@@ -98,7 +98,7 @@
                                 else{
                                     include "drop.php";
                                 }?>
-                            </div>                      
+                        </div>                      
                     </div>
                 </nav>
             </div>
@@ -111,26 +111,34 @@
                 <div class="row align-items-center">
                     <div class="col-md-3">
                         <div class="logo">
-                            <a href="index.html">
+                            <a href="index.php">
                                 <img src="img/logo.png" alt="Logo">
                             </a>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="search">
-                        <form class="form-inline" action="product-list.php?mod=search" method="POST">
-								<input class="form-control mr-sm-2" name="search_product" type="search" placeholder="Tìm kiếm sản phẩm" aria-label="Search" required>
-								<button class="btn my-2 my-sm-0" name="search_button" type="submit">Tìm kiếm</button>
-							</form>                 
+                        <form action="product-list.php?mod=search&proname=<?php echo $search;?>" method="post">
+                                <input type="text" name="search" >
+                                <button><i class="fa fa-search" type="submit" name="ok"></i></button>
+                            </form>
                         </div>
-                    </div>
+                        
+                        <?php
+                        if (isset($_POST['ok'])) 
+                        {
+                            if (empty($search)) {
+                                echo "Yeu cau nhap du lieu vao o trong";
+                            } 
+                            else{
+                                include "mod.php";
+                            }
+                        }
+
+                        ?></div>
                     <div class="col-md-3">
                         <div class="user">
-                            <a href="wishlist.html" class="btn wishlist">
-                                <i class="fa fa-heart"></i>
-                                <span>(0)</span>
-                            </a>
-                            <a href="cart.html" class="btn cart">
+                            <a href="cart.php" class="btn cart">
                                 <i class="fa fa-shopping-cart"></i>
                                 <span>(0)</span>
                             </a>
