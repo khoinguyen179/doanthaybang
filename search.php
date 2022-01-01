@@ -1,40 +1,28 @@
-
 <?php
+if(isset($_POST['search_button'])){
 
-<div class="productList">
-$tieude = getIndex("proname");
-$sachDB=new Sach();
-if(isset($_GET['loai']))
-{ 
-    //$tam=$db->exeQuery("select count(*) from sach where maloai=?",array($_GET['loai']),PDO::FETCH_NUM);
-    $tongSach=$sachDB->tongSoSach1Loai($_GET['loai']);
-}else
-{
-    //$tam=$db->exeQuery("select count(*) from sach",array(),PDO::FETCH_NUM);
-    $tongSach=$sachDB->tongSoSach();
-}
+$tukhoa = $_POST['search_product'];
+
+$title = $tukhoa;    
+$sql_product = $sachdb->search($title);		
+
+
+}		
+
 //$tongSach=$tam[0][0];
 $page=isset($_GET['p'])?$_GET['p']:1;
 $bd=($page-1)*SACH_1_TRANG;
-if(isset($_GET['proname']))
-{ 
-    //$sachs=$db->exeQuery("select tensp,dongia,luotxem,hinh from sanpham where maloai=? limit $bd,".SACH_1_TRANG,array($_GET['loai']));
-    $sachs=$db->exeQuery("select * from sanpham where tensp like '%$tieude%'  ");
-}
-else
+
+foreach($sql_product as $sp)
 {
-    $sachs=$db->exeQuery("select * from sanpham where tensp like '%$loai%'  ");
-}
-foreach($sachs as $sach)
-{
-    $num=$sach['dongia'];
+    $num=$sp['dongia'];
     $formattedNum = number_format($num);
 ?>
 
                         <div class="col-md-4">
                                 <div class="product-item">
                                     <div class="product-title">
-                                        <a href="product-detail.php?mod=product&ac=catalog&id=<?php echo $sach["masp"];?>"><?php echo $sach['tensp'];?></a>
+                                        <a href="product-detail.php?mod=product&ac=catalog&id=<?php echo $sp["masp"];?>"><?php echo $sp['tensp'];?></a>
                                         <div class="ratting">
                                             <i class="fa fa-star"></i>
                                             <i class="fa fa-star"></i>
@@ -45,7 +33,7 @@ foreach($sachs as $sach)
                                     </div>
                                     <div class="product-image">
                                         <a href="product-detail.html">
-                                            <img src="img/sp/<?php echo $sach['hinh'];?>" alt="Product Image">
+                                            <img src="img/sp/<?php echo $sp['hinh'];?>" alt="Product Image">
                                         </a>
                                         <div class="product-action">
                                             <a href="#"><i class="fa fa-cart-plus"></i></a>

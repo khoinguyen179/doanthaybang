@@ -48,11 +48,11 @@
                 <div class="row">
                     <div class="col-sm-6">
                         <i class="fa fa-envelope"></i>
-                        support@email.com
+                        knt@email.com
                     </div>
                     <div class="col-sm-6">
                         <i class="fa fa-phone-alt"></i>
-                        +012-345-6789
+                        +079-669-6969
                     </div>
                 </div>
             </div>
@@ -106,26 +106,23 @@
                 <div class="row align-items-center">
                     <div class="col-md-3">
                         <div class="logo">
-                            <a href="index.html">
+                            <a href="index.php">
                                 <img src="img/logo.png" alt="Logo">
                             </a>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="search">
-                        <form action="product-list.php">
+                        <form action="product-list.php" method="POST">
                             <input type="hidden" name="mod" value="search" />
-                            <input  type="text" placeholder="Search" name="proname" value="Search"  onfocus="if (this.value=='Search') this.value=''; ">
-                            <button  type="submit" ><i class="fa fa-search"></i></button>
+                            <input  type="text" placeholder="Search" name="search_product" >
+                            <button  type="submit" name="search_button"><i class="fa fa-search"></i></button>
                             </form>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="user">
-                            <a href="wishlist.html" class="btn wishlist">
-                                <i class="fa fa-heart"></i>
-                                <span>(0)</span>
-                            </a>
+                            
                             <a id="cartinfo"><?php if(isset($_SESSION['cart'])) echo count($_SESSION['cart']);?></a>
                             <a href="cart.php" class="btn cart" id="cart-box">
                                 <i class="fa fa-shopping-cart"></i>

@@ -64,19 +64,11 @@
 
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                         <div class="navbar-nav mr-auto">
-                            <a href="index.php?mo=loai" class="nav-item nav-link active">Quản lý loại</a>
+                            <a href="index.php?mo=loai" class="nav-item nav-link ">Quản lý loại</a>
                             <a href="index.php?mo=sp" class="nav-item nav-link">Quản lý sản phẩm</a>
                             <a href="index.php?mo=kh" class="nav-item nav-link">Quản lý khách hàng</a>
-                            <a href="index.php?mo=dh" class="nav-item nav-link">Quản lý đơn hàng</a>
-                            <a href="my-account.php" class="nav-item nav-link">My Account</a>
-                            <div class="nav-item dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">More Pages</a>
-                                <div class="dropdown-menu">
-                                    <a href="wishlist.html" class="dropdown-item">Wishlist</a>
-                                    <a href="login.html" class="dropdown-item">Login & Register</a>
-                                    <a href="contact.html" class="dropdown-item">Contact Us</a>
-                                </div>
-                            </div>
+                            <a href="index.php?mo=dh" class="nav-item nav-link">Quản lý đơn hàng chưa duyệt</a>
+                            <a href="index.php?mo=dh2" class="nav-item nav-link">Quản lý đơn hàng đã duyệt</a>
                         </div>
                        
                                 <div class="navbar-nav ml-auto">
@@ -136,6 +128,9 @@
             case "dh":
                 include "donhang.php";
                 break;
+                case "dh2":
+                    include "donhang2.php";
+                    break;
 		};
 	  
 	  ?>

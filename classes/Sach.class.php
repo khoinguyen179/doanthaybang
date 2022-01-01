@@ -66,7 +66,7 @@ class Sach extends Db{
 	}
 	public function search($search)
 	{
-		$sql="select tieude,luotxem  from baiviet where tieude='%$search%'";
+		$sql="select *  from sanpham where tensp='%$search%'";
 		return $this->exeQuery($sql);	
 	}
 	public function them($ma,$ten,$donvitinh,$dongia,$hinh,$stttonkho,$maloai,$xuatsu,$luotxem,$thongtin)

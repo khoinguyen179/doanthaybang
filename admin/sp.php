@@ -36,7 +36,7 @@ else if(isset($_REQUEST['ac']) && $_REQUEST['ac']=="xoa") //thuc hien xoa
 	}else
 	{
 	?>
-    <script>alert("Không được xóa vì có sản phẩm trong loại");</script>
+    <script>alert("Xóa không thành công");</script>
     <?php
 	}
 }else if(isset($_REQUEST['ac']) && $_REQUEST['ac']=="sua")
@@ -157,17 +157,6 @@ $dssp=$spDB->tatCa();
           <?php 
 		  	$i++;
 		  } ?>
-          <!--
-          <tr class="bg">
-            <td >- Lorem Ipsum </td>
-            <td></td>
-            <td><img src="img/add-icon.gif" width="16" height="16" alt="add" /></td>
-            <td><img src="img/hr.gif" width="16" height="16" alt="" /></td>
-      
-            <td><img src="img/edit-icon.gif" width="16" height="16" alt="edit" /></td>
-      
-          </tr>
-      		-->
         </table>
         <div class="select"> <strong>Other Pages: </strong>
           <select>
@@ -178,4 +167,3 @@ $dssp=$spDB->tatCa();
     </div>
             </div>
         </div>
-<!--end loai -->

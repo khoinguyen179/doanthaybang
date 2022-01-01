@@ -53,11 +53,11 @@
                 <div class="row">
                     <div class="col-sm-6">
                         <i class="fa fa-envelope"></i>
-                        support@email.com
+                        knt@email.com
                     </div>
                     <div class="col-sm-6">
                         <i class="fa fa-phone-alt"></i>
-                        +012-345-6789
+                        +079-669-6969
                     </div>
                 </div>
             </div>
@@ -79,8 +79,7 @@
                             <a href="product-list.php" class="nav-item nav-link active">Products</a>
                              
                             <a href="cart.php" class="nav-item nav-link">Cart</a>
-                            <a href="checkout.html" class="nav-item nav-link">Checkout</a>
-                            <a href="my-account.html" class="nav-item nav-link">My Account</a>
+                            <a href="my-account.php" class="nav-item nav-link">My Account</a>
                             <div class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">More Pages</a>
                                 <div class="dropdown-menu">
@@ -119,8 +118,10 @@
                     </div>
                     <div class="col-md-6">
                         <div class="search">
-                            <input type="text" placeholder="Search">
-                            <button><i class="fa fa-search"></i></button>
+                        <form class="form-inline" action="product-list.php?mod=search" method="POST">
+								<input class="form-control mr-sm-2" name="search_product" type="search" placeholder="Tìm kiếm sản phẩm" aria-label="Search" required>
+								<button class="btn my-2 my-sm-0" name="search_button" type="submit">Tìm kiếm</button>
+							</form>                 
                         </div>
                     </div>
                     <div class="col-md-3">
@@ -163,7 +164,7 @@
                                     <div class="row">
                                         <div class="col-md-4">
                                         <div class="search">
-                                        <form action="product-list.php?mod=search&ten=<?php echo $ten; ?>" method="post">
+                                        <form action="?mod=search&search_product=<?php echo $ten; ?>" method="post">
                                             <input  type="text" placeholder="Search" name="search">
                                             <button  type="submit" ><i class="fa fa-search"></i></button>
                                             </form>

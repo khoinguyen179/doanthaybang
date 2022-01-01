@@ -68,7 +68,7 @@
  	for($i=0;$i<count($_POST['thanhtoan_product_id']);$i++){
 	 		$sanpham_id = $_POST['thanhtoan_product_id'][$i];
 	 		$soluong = $_POST['thanhtoan_soluong'][$i];
-	 		$sql_donhang = $db->exeQuery("INSERT INTO donhang(madh,email,tennguoinhan,emailnguoinhan,sdtnguoinhan,diachinhanhang,ghichucuakh) values ('$madonhang','$emailkhachhang','$name','$email','$phone','$address','$note')");
+	 		$sql_donhang = $db->exeQuery("INSERT INTO donhang(madh,email,tennguoinhan,emailnguoinhan,sdtnguoinhan,diachinhanhang,ghichucuakh,tongtien) values ('$madonhang','$emailkhachhang','$name','$email','$phone','$address','$note',$total)");
 	 		$sql_chitietdh = $db->exeQuery("INSERT INTO chitietdonhang(madh,masp,soluong) values ('$madonhang','$sanpham_id','$soluong')");
 	 		$sql_delete_thanhtoan = $db->exeQuery("DELETE FROM tbl_giohang WHERE sanpham_id='$sanpham_id'");
  		}

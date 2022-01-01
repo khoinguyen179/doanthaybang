@@ -162,40 +162,38 @@
                                 <div class="table-responsive">
                                     <table class="table table-bordered">
                                         <thead class="thead-dark">
-                                            <tr>
-                                                <th>No</th>
-                                                <th>Product</th>
-                                                <th>Date</th>
-                                                <th>Price</th>
-                                                <th>Status</th>
-                                                <th>Action</th>
+                                        <tr>
+                                                <th>Mã đơn hàng</th>
+                                                <th>Tên sản phẩm</th>
+                                                <th>Số lượng</th>
+                                                <th>Ngày đặt</th>
+                                                <th>Tổng tiền</th>
+                                                <th>Trạng thái</th>
+                                                
                                             </tr>
-                                        </thead>
+                                        </thead>                                        
                                         <tbody>
+                                        <?php 
+                                        if (isset($_SESSION['email']) && $_SESSION['email']){
+                                        $email= $_SESSION['email'];}
+                                        else
+                                            $email=null;
+                                        $sql_donhang = $db->exeQuery("Select * from chitietdonhang inner join donhang on chitietdonhang.madh=donhang.madh	inner JOIN sanpham on chitietdonhang.masp=sanpham.masp where donhang.email='$email' ");    
+                                        foreach($sql_donhang as $donhang){
+                                            $num=$donhang['dongia'];
+                                            $formattedNum = number_format($num);
+                                            if ($donhang['trangthai']==0) $status="Chưa được duyệt"; 
+                                            else $status = "Đã được duyệt";?>
                                             <tr>
-                                                <td>1</td>
-                                                <td>Product Name</td>
-                                                <td>01 Jan 2020</td>
-                                                <td>$99</td>
-                                                <td>Approved</td>
+                                                <td><?php echo $donhang['madh'];?></td>
+                                                <td><?php echo $donhang['tensp'];?></td>
+                                                <td><?php echo $donhang['soluong'];?></td>
+                                                <td><?php echo $donhang['ThoiDiemDatHang'];?></td>
+                                                <td><?php echo number_format($donhang['tongtien']);?>đ</td>
+                                                <td><?php echo $status;?></td>
                                                 <td><button class="btn">View</button></td>
                                             </tr>
-                                            <tr>
-                                                <td>2</td>
-                                                <td>Product Name</td>
-                                                <td>01 Jan 2020</td>
-                                                <td>$99</td>
-                                                <td>Approved</td>
-                                                <td><button class="btn">View</button></td>
-                                            </tr>
-                                            <tr>
-                                                <td>3</td>
-                                                <td>Product Name</td>
-                                                <td>01 Jan 2020</td>
-                                                <td>$99</td>
-                                                <td>Approved</td>
-                                                <td><button class="btn">View</button></td>
-                                            </tr>
+                                            <?php }?>
                                         </tbody>
                                     </table>
                                 </div>
