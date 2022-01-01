@@ -23,7 +23,13 @@
         <!-- Template Stylesheet -->
         <link href="css/style.css" rel="stylesheet">
     </head>
-
+    <style>
+    input.button {
+    border: 0;
+    background: unset;
+    color: unset;
+}
+</style>
     <body>
     <?php
   
@@ -72,7 +78,7 @@
                             <a href="index.php" class="nav-item nav-link">Home</a>
                             <a href="product-list.php" class="nav-item nav-link active">Products</a>
                              
-                            <a href="cart.html" class="nav-item nav-link">Cart</a>
+                            <a href="cart.php" class="nav-item nav-link">Cart</a>
                             <a href="checkout.html" class="nav-item nav-link">Checkout</a>
                             <a href="my-account.html" class="nav-item nav-link">My Account</a>
                             <div class="nav-item dropdown">

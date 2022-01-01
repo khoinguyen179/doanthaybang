@@ -18,7 +18,7 @@ class Loai extends Db{
 	public function xoa($ma)
 	{
 		//Kiem tra co sach nao trong loai do ko?
-		$sql="select count(*) as dem from sach where maloai=?";
+		$sql="select count(*) as dem from sanpham where maloai=?";
 		
 		$kq=$this->exeQuery($sql,array($ma));
 		if($kq[0]['dem']>0)

@@ -34,6 +34,10 @@ class Db{
 		{
 			$this->pdo->rollBack();
 		}
+		public function prepare()
+		{
+			$this->pdo->prepare();
+		}
 		public function setAttribute($arr=array())
 		{
 			foreach($arr as $key=>$value)

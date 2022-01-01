@@ -1,4 +1,20 @@
 
+<script>
+function chonMua(masach)
+{
+    
+    //location.href="index.php?mo=cart&ac=add&ms="+masach;
+    $.ajax({
+        url:"http://localhost/doancn/spcart.php",
+        type:"GET",
+        data:{ms:masach},
+        success:function (result) {
+            $("#cartinfo").html(result);
+        }
+    })
+    
+}
+</script>
 <?php
 
 
@@ -18,7 +34,7 @@ $page=isset($_GET['p'])?$_GET['p']:1;
 $bd=($page-1)*SACH_1_TRANG;
 if(isset($_GET['loai']))
 { 
-    $sachs=$db->exeQuery("select tensp,dongia,luotxem,hinh from sanpham where maloai=? limit $bd,".SACH_1_TRANG,array($_GET['loai']));
+    $sachs=$db->exeQuery("select masp, tensp,dongia,luotxem,hinh from sanpham where maloai=? limit $bd,".SACH_1_TRANG,array($_GET['loai']));
 }
 else
 {
@@ -55,7 +71,16 @@ foreach($sachs as $sach)
                                     </div>
                                     <div class="product-price">
                                         <h3><?php echo $formattedNum; ?><span>đ</span></h3>
-                                        <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Buy Now</a>
+                                        <a class="btn" href=""><i class="fa fa-shopping-cart"></i><form action="cart.php?mod=cart" method="post">
+                                            <fieldset>
+                                                <input type="hidden" name="tensanpham" value="<?php echo $sach['tensp'] ?>" />
+                                                <input type="hidden" name="sanpham_id" value="<?php echo $sach['masp'] ?>" />
+                                                <input type="hidden" name="giasanpham" value="<?php echo $sach['dongia'] ?>" />
+                                                <input type="hidden" name="hinhanh" value="<?php echo $sach['hinh'] ?>" />
+                                                <input type="hidden" name="soluong" value="1" />			
+                                                <input type="submit" name="themgiohang" value="Buy Now" class="button" background=""/>
+                                            </fieldset>
+                                        </form></a>
                                     </div>
                                 </div>
                             </div>

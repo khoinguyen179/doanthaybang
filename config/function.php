@@ -15,3 +15,7 @@ function requestIndex($index, $value="")
 	if (!isset($_REQUEST[$index]))	return $value;
 	return $_REQUEST[$index];
 }
+    
+        
+          
+   //function cart?>

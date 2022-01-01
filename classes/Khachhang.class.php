@@ -25,4 +25,28 @@ class Khachhang extends Db
         else
         return false;
     }
+    public function tatCa()
+	{
+		$sql="select * from khachhang";
+		return $this->exeQuery($sql);	
+	}
+	
+	public function sua($ma,$matkhau,$tenkh,$diachi,$dienthoai)
+	{
+		$sql="update khachhang set matkhau=?,tenkh=?,diachi=?,dienthoai=? where makh=?";
+		return $this->exeNoneQuery($sql,array($matkhau,$tenkh,$diachi,$dienthoai,$ma));
+	}
+	public function xoa($ma)
+	{
+		$kq=$this->exeQuery($sql,array($ma));
+		if($kq[0]['dem']>0)
+			return -1; //tu quy dinh -1 la ko xoa dc vi co sach
+		$sql="delete from khachhang where makh=? ";
+		return $this->exeNoneQuery($sql,array($ma));
+	}
+    public function thongTin1Khach($ma)
+	{
+		$sql="select * from khachhang where makh=?";
+		return $this->exeQuery($sql, array($ma));
+	}
 }

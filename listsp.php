@@ -1,16 +1,19 @@
-
+<style>
+    input.button {
+    border: 0;
+    background: unset;
+    color: unset;
+}
+</style>
 <?php
 $sachDB=new Sach();
 if(isset($_GET['loai']))
 { 
-    //$tam=$db->exeQuery("select count(*) from sach where maloai=?",array($_GET['loai']),PDO::FETCH_NUM);
     $tongSach=$sachDB->tongSoSach1Loai($_GET['loai']);
 }else
 {
-    //$tam=$db->exeQuery("select count(*) from sach",array(),PDO::FETCH_NUM);
     $tongSach=$sachDB->tongSoSach();
 }
-//$tongSach=$tam[0][0];
 $page=isset($_GET['p'])?$_GET['p']:1;
 $bd=($page-1)*SACH_1_TRANG;
 

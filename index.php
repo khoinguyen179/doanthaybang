@@ -23,7 +23,13 @@
         <!-- Template Stylesheet -->
         <link href="css/style.css" rel="stylesheet">
     </head>
-
+    <style>
+    input.button {
+    border: 0;
+    background: unset;
+    color: unset;
+}
+</style>
     <body>
         <?php
         include "config/function.php";
@@ -66,14 +72,13 @@
                         <div class="navbar-nav mr-auto">
                             <a href="index.php" class="nav-item nav-link active">Home</a>
                             <a href="product-list.php" class="nav-item nav-link">Products</a>
-                            <a href="cart.html" class="nav-item nav-link">Cart</a>
-                            <a href="checkout.html" class="nav-item nav-link">Checkout</a>
+                            <a href="cart.php" class="nav-item nav-link">Cart</a>
                             <a href="my-account.php" class="nav-item nav-link">My Account</a>
                             <div class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">More Pages</a>
                                 <div class="dropdown-menu">
-                                    <a href="wishlist.html" class="dropdown-item">Wishlist</a>
-                                    <a href="login.html" class="dropdown-item">Login & Register</a>
+                                    <a href="login.php" class="dropdown-item">Login</a>
+                                    <a href="register.php" class="dropdown-item">Register</a>
                                     <a href="contact.html" class="dropdown-item">Contact Us</a>
                                 </div>
                             </div>
@@ -121,7 +126,8 @@
                                 <i class="fa fa-heart"></i>
                                 <span>(0)</span>
                             </a>
-                            <a href="cart.html" class="btn cart">
+                            <a id="cartinfo"><?php if(isset($_SESSION['cart'])) echo count($_SESSION['cart']);?></a>
+                            <a href="cart.php" class="btn cart" id="cart-box">
                                 <i class="fa fa-shopping-cart"></i>
                                 <span>(0)</span>
                             </a>
@@ -140,7 +146,7 @@
                         <nav class="navbar bg-light">
                             <ul class="navbar-nav">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#"><i class="fa fa-home"></i>Home</a>
+                                    <a class="nav-link" href="index.php"><i class="fa fa-home"></i>Home</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="product-list.php?mod=bestselling"><i class="fa fa-thumbs-up"></i>Sản phẩm bán chạy</a>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1:3306
--- Thời gian đã tạo: Th12 28, 2021 lúc 11:51 AM
+-- Thời gian đã tạo: Th1 01, 2022 lúc 03:18 AM
 -- Phiên bản máy phục vụ: 5.7.31
 -- Phiên bản PHP: 7.3.21
 
@@ -57,8 +57,34 @@ CREATE TABLE IF NOT EXISTS `admin` (
 --
 
 INSERT INTO `admin` (`maadmin`, `username`, `matkhau`, `hoten`, `quyen`) VALUES
-('adm1', 'admin1', '1111', 'admin1', 1),
+('adm1', 'admin1', 'b59c67bf196a4758191e42f76670ceba', 'admin1', 1),
 ('adm2', 'admin2', '2222', 'admin', 2);
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `chitietdonhang`
+--
+
+DROP TABLE IF EXISTS `chitietdonhang`;
+CREATE TABLE IF NOT EXISTS `chitietdonhang` (
+  `mact` int(11) NOT NULL AUTO_INCREMENT,
+  `madh` char(10) NOT NULL,
+  `masp` varchar(15) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `soluong` int(11) NOT NULL,
+  PRIMARY KEY (`mact`),
+  KEY `masp` (`masp`),
+  KEY `madh` (`madh`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+
+--
+-- Đang đổ dữ liệu cho bảng `chitietdonhang`
+--
+
+INSERT INTO `chitietdonhang` (`mact`, `madh`, `masp`, `soluong`) VALUES
+(2, 'dh9680', 'th04', 4),
+(3, 'dh9680', 'th10', 2),
+(4, 'dh9680', 'ca01', 1);
 
 -- --------------------------------------------------------
 
@@ -98,7 +124,7 @@ CREATE TABLE IF NOT EXISTS `comment` (
   `comment` text CHARACTER SET latin1 NOT NULL,
   `ngaydang` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `comment`
@@ -106,7 +132,37 @@ CREATE TABLE IF NOT EXISTS `comment` (
 
 INSERT INTO `comment` (`id`, `masp`, `name`, `email`, `comment`, `ngaydang`) VALUES
 (1, 'ca03', 'Khoi', 'khoi179@gmail.com', 'good', '2021-12-27 03:59:13'),
-(2, 'ca03', 'Khoi', 'khoi179@gmail.com', 'good', '2021-12-27 03:59:56');
+(2, 'ca03', 'Khoi', 'khoi179@gmail.com', 'good', '2021-12-27 03:59:56'),
+(3, 'th11', 'hào', 'haole@gmail.com', 'good', '2021-12-29 14:04:33'),
+(4, 'th11', 'hào', 'haole@gmail.com', 'good', '2021-12-29 14:04:40');
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `donhang`
+--
+
+DROP TABLE IF EXISTS `donhang`;
+CREATE TABLE IF NOT EXISTS `donhang` (
+  `madh` char(10) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `ThoiDiemDatHang` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `tennguoinhan` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `emailnguoinhan` varchar(200) DEFAULT NULL,
+  `sdtnguoinhan` varchar(50) DEFAULT NULL,
+  `diachinhanhang` varchar(100) DEFAULT NULL,
+  `trangthai` tinyint(1) NOT NULL DEFAULT '0',
+  `ghichucuakh` text CHARACTER SET utf8 COLLATE utf8_unicode_ci,
+  PRIMARY KEY (`madh`),
+  KEY `email` (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Đang đổ dữ liệu cho bảng `donhang`
+--
+
+INSERT INTO `donhang` (`madh`, `email`, `ThoiDiemDatHang`, `tennguoinhan`, `emailnguoinhan`, `sdtnguoinhan`, `diachinhanhang`, `trangthai`, `ghichucuakh`) VALUES
+('dh9680', 'khoi179@gmail.com', '2022-01-01 01:03:42', 'khoi', 'abc@gmail.com', '0564919813', 'nhà bè', 0, 'avb');
 
 -- --------------------------------------------------------
 
@@ -208,7 +264,7 @@ CREATE TABLE IF NOT EXISTS `sanpham` (
   `stttonkho` varchar(5) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `maloai` varchar(5) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `xuatsu` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `luotxem` int(11) NOT NULL,
+  `luotxem` int(11) DEFAULT NULL,
   `thongtin` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`masp`),
   KEY `maloai` (`maloai`),
@@ -224,6 +280,7 @@ INSERT INTO `sanpham` (`masp`, `tensp`, `donvitinh`, `dongia`, `hinh`, `stttonkh
 ('ca02', 'Cá Neon Hoàng đế', 'con', 25000, 'CaNeonHoangDe25k.png', 'tk02', 'ca', 'Nước ngoài', 20102, 'Tổ tiên của loài cá này sống ở Columbia, miền bắc Nam Mỹ, nhưng loài cá này được sinh sản và nuôi dưỡng tại một trang trại cá nổi tiếng, và những con cá neon này hiện sống trong nhiều bể cá trên khắp thế giới.'),
 ('ca03', 'Cá phượng hoàng ngũ sắc', 'con', 80000, 'CaPhuongHoangNguSac80k.png', 'tk02', 'ca', 'Nước ngoài', 19475, 'Đây là giống cá cảnh thuộc dòng chili – một trong những loại cá cảnh được nuôi rất phổ biến trong các hồ thủy sinh hiện nay. Giống cá này được rất nhiều người chơi cá cảnh yêu thích. Bởi nó có màu sắc rất đẹp và bắt mắt. Đặc biệt, so với các loài cá khác thì cá ngũ sắc lại rất dễ nuôi và chăm sóc.'),
 ('ca04', 'Cá thủy tinh Ấn Độ', 'con', 30000, 'CaThuyTinhAnDo30k.png', 'tk01', 'ca', 'Nước ngoài', 22475, 'Tên tiếng Latin: Parambassis ranga  - Nhiệt độ: 20 - 20 độ C  - pH: 6,5 - 8  - Kích thước trưởng thành: 7cm   - Nguồn gốc: Cá Thuỷ Tinh Ấn Độ là một loài cá nước ngọt thuộc họ cá thủy tinh Asiatic Ambassidae có nguồn gốc từ một khu vực của Nam Á từ Pakistan đến Malaysia.'),
+('hl1', 'Hao Le', 'thằng', 1000000, '94120839_215647936402081_4119244326901383168_n.png', 'tk01', 'ml', 'Đồng Tháp', 0, 'Đẹp trai, học giỏi, độc thân, yếu.'),
 ('th01', 'Máy lọc XBL', 'cái', 310000, 'LocXBL.jpg', 'tk02', 'ml', 'VIệt Nam', 13451, 'Chất liệu: Nhựa Tương thích: Bể nước ngọt và mặn Lưu lượng: 500 lít/h Công suất: 7W Cường độ âm thanh: <35dB'),
 ('th02', 'Đèn thủy sinh ONF FLAT One', 'cái', 2200000, 'DenThuySinhONFFlatOne.png', 'tk02', 'den', 'Nước ngoài', 23669, 'Phạm vi quang phổ ngắn hơn 3000k tới 6500k Hiệu chỉnh ánh sáng theo chu kì như một ngày bình thường của thực vật ngoài tự nhiên từ thấp lên cao. Chế độ tắt mở đèn sáng dần và tối dần không như phiên bản cũ tắt mở dột ngột khiến cá, tép bên trong hồ thủy sinh bị hoảng loạn. Sử dụng chung app với Flat nano+ Bạn không cần bận tâm tới vấn đề mất điện bởi bộ nhớ của đèn đã được cải tiến so với bản 1, đèn sẽ tự động nhớ lại các thông số cài đặt của bạn ngay cả khi mất điện.'),
 ('th03', 'Đèn thủy sinh ONF FLAT One cao cấp', 'cái', 9500000, 'DenThuySinhCaoCapONFFlatOne.png', 'tk02', 'den', 'Việt Nam', 16228, 'Đèn LED thủy sinh ONF FlatOne Plus 90 là bản cải tiến từ người anh em tiền nhiệm Flat One 90 , sản phẩm cao cấp được bình chọn là chiếc đèn có mẫu thiết kế đẹp nhất trong 5 năm liền tại Reddot Award 2016 . Phiên bản Flat One Plus 90 được trình làng vào đầu năm 2020 , hứa hẹn là sản phẩm được giới người chơi thủy sinh lựa chọn cho bể thủy sinh của mình .'),
@@ -236,6 +293,31 @@ INSERT INTO `sanpham` (`masp`, `tensp`, `donvitinh`, `dongia`, `hinh`, `stttonkh
 ('th10', 'Ráy NANA cẩm thạch', 'ngọn', 250000, 'RayNanaCmThach.png', 'tk05', 'cay', 'Việt Nam', 35886, 'Thuộc loại ráy nhưng yêu cầu về nước, dinh dưỡng, ánh sáng, co2 khó hơn nhiều so với những loại ráy khác. Nếu bị khuất sáng, ráy trắng thường mất màu trắng nhanh, dễ bị rữa lá và rêu hại tấn công. Tương tự như vậy, thiếu co2 làm ráy trắng hồi biến về xanh cực nhanh và dễ rụng lá.'),
 ('th11', 'Rêu mini Taiwan', 'vỉ', 80000, 'ReuMiniTaiwan.png', 'tk01', 'cay', 'Nước ngoài', 24471, 'Rêu Mini Taiwan là một loại rêu trong họ Hypnaceae, có tên khoa học là Taxiphyllum alternans. Loại rêu này phân bố chủ yếu ở Đông Á, một số nơi ở Đông Nam Á cũng có. Chúng thường mọc ở khe suối, thác nước, đất đá và những thanh gỗ lũa mục ở các đầm lầy.'),
 ('th12', 'Thức ăn cá cảnh', 'gói', 20000, 'ThucAnCaCanh.png', 'tk01', 'cay', 'Việt Nam', 16335, 'Hiện nay, nuôi cá cảnh là một sở thích được nhiều người rất ưa chuộng bởi sự dễ thương,gần gũi và yên bình mà chúng mai lại cho chủ nuôi. Tuy nhiên, chúng ta lại có rất ít kiến thức để chăm sóc cá cảnh sao cho tốt nhất, đặc biệt là về các loại thức ăn tốt cho cá cũng như liều lượng phù hợp cho mỗi lần ăn.');
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `tbl_giohang`
+--
+
+DROP TABLE IF EXISTS `tbl_giohang`;
+CREATE TABLE IF NOT EXISTS `tbl_giohang` (
+  `giohang_id` int(11) NOT NULL AUTO_INCREMENT,
+  `tensanpham` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `sanpham_id` char(10) NOT NULL,
+  `giasanpham` varchar(100) NOT NULL,
+  `hinhanh` varchar(50) NOT NULL,
+  `soluong` int(11) NOT NULL,
+  PRIMARY KEY (`giohang_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+
+--
+-- Đang đổ dữ liệu cho bảng `tbl_giohang`
+--
+
+INSERT INTO `tbl_giohang` (`giohang_id`, `tensanpham`, `sanpham_id`, `giasanpham`, `hinhanh`, `soluong`) VALUES
+(8, 'Ráy NANA cẩm thạch', 'th10', '250000', 'RayNanaCmThach.png', 1),
+(9, 'Cá mún Panda', 'ca01', '10000', 'CaMunPanDa10k.png', 1);
 
 -- --------------------------------------------------------
 
@@ -272,11 +354,24 @@ INSERT INTO `tonkho` (`stttonkho`, `soluongnhap`, `soluongxuat`, `tondauky`, `to
 --
 
 --
+-- Các ràng buộc cho bảng `chitietdonhang`
+--
+ALTER TABLE `chitietdonhang`
+  ADD CONSTRAINT `madh` FOREIGN KEY (`madh`) REFERENCES `donhang` (`madh`),
+  ADD CONSTRAINT `masp` FOREIGN KEY (`masp`) REFERENCES `sanpham` (`masp`);
+
+--
 -- Các ràng buộc cho bảng `chitiethd`
 --
 ALTER TABLE `chitiethd`
   ADD CONSTRAINT `chitiethd_ibfk_1` FOREIGN KEY (`mahd`) REFERENCES `hoadon` (`mahd`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `chitiethd_ibfk_2` FOREIGN KEY (`masach`) REFERENCES `sanpham` (`masp`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Các ràng buộc cho bảng `donhang`
+--
+ALTER TABLE `donhang`
+  ADD CONSTRAINT `email` FOREIGN KEY (`email`) REFERENCES `khachhang` (`email`);
 
 --
 -- Các ràng buộc cho bảng `hoadon`

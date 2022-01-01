@@ -1,3 +1,68 @@
+<?php
+  
+  
+  include "config/function.php";
+  
+      include "config/config.php";
+      function myautoload($classname)
+      {
+          include "classes/".$classname.".class.php";
+      }
+      spl_autoload_register("myautoload");
+      $db=new Db();
+      $search 	= postIndex("search");
+      $sachDB=new Sach();
+      $sachs=$sachDB->hot();
+  ?>
+<?php
+//Khai báo sử dụng session
+session_start();
+ 
+//Khai báo utf-8 để hiển thị được tiếng việt
+header('Content-Type: text/html; charset=UTF-8');
+ 
+//Xử lý đăng nhập
+if (isset($_POST['dangnhap'])) 
+{
+    //Kết nối tới database
+    
+     
+    //Lấy dữ liệu nhập vào
+    $username = addslashes($_POST['username']);
+    $password = addslashes($_POST['password']);
+    
+    //Kiểm tra đã nhập đủ tên đăng nhập với mật khẩu chưa
+    if (!$username || !$password) {
+        echo "Vui lòng nhập đầy đủ email và mật khẩu. <a href='javascript: history.go(-1)'>Trở lại</a>";
+        exit;
+    }
+     
+    // mã hóa pasword
+    $password = md5($password);
+     
+    //Kiểm tra tên đăng nhập có tồn tại không
+    $kq=$db->exeQuery("select username, matkhau FROM admin WHERE username='$username'");
+    if ($kq == null) {
+        echo "Tên đăng nhập này không tồn tại. Vui lòng kiểm tra lại. <a href='javascript: history.go(-1)'>Trở lại</a>";
+        exit;
+    }
+     
+    
+    foreach($kq as $kqs)
+    {
+    //So sánh 2 mật khẩu có trùng khớp hay không
+    if ($password != $kqs['matkhau']) {
+        echo "Mật khẩu không đúng. Vui lòng nhập lại. <a href='javascript: history.go(-1)'>Trở lại</a>";
+        exit;
+    }
+    }
+    //Lưu tên đăng nhập
+    $_SESSION['username'] = $username;
+    echo "Xin chào " . $username . ". Bạn đã đăng nhập thành công. <a href='admin/index.php'>Về trang chủ</a>";
+    die();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -24,22 +89,6 @@
     </head>
 
     <body>
-    <?php
-  
-  
-  include "config/function.php";
-  
-      include "config/config.php";
-      function myautoload($classname)
-      {
-          include "classes/".$classname.".class.php";
-      }
-      spl_autoload_register("myautoload");
-      $db=new Db();
-      
-      $sachDB=new Sach();
-      
-  ?>
         <!-- Top bar Start -->
         <div class="top-bar">
             <div class="container-fluid">
@@ -70,7 +119,7 @@
                         <div class="navbar-nav mr-auto">
                             <a href="index.html" class="nav-item nav-link">Home</a>
                             <a href="product-list.html" class="nav-item nav-link">Products</a>
-                            
+                            <a href="product-detail.html" class="nav-item nav-link">Product Detail</a>
                             <a href="cart.html" class="nav-item nav-link">Cart</a>
                             <a href="checkout.html" class="nav-item nav-link">Checkout</a>
                             <a href="my-account.html" class="nav-item nav-link">My Account</a>
@@ -136,138 +185,46 @@
         <div class="breadcrumb-wrap">
             <div class="container-fluid">
                 <ul class="breadcrumb">
-                    
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item"><a href="#">Products</a></li>
                     <li class="breadcrumb-item active">Login & Register</li>
                 </ul>
             </div>
         </div>
-        
         <!-- Breadcrumb End -->
         
         <!-- Login Start -->
         <div class="login">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-lg-6">    
-                        <div class="register-form">
-                            <form action="register.php" method="POST">
-                                <div class="row">
-                                    
-                                    <div class="col-md-6">
-                                        <label>Tên đăng nhập</label>
-                                        <input class="form-control" type="text" name="txtUsername" placeholder="Tên đăng nhập:">
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label>E-mail</label>
-                                        <input class="form-control" type="text" name="txtEmail" placeholder="E-mail">
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label>Số điện thoại</label>
-                                        <input class="form-control" type="text" name="txtSDT" placeholder="Số điện thoại">
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label>Địa chỉ</label>
-                                        <input class="form-control" type="text" name="txtdc" placeholder="Địa chỉ">
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label>Mật khẩu</label>
-                                        <input class="form-control" type="text" name="txtPassword" placeholder="Mật khẩu">
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label>Nhập lại mật khẩu</label>
-                                        <input class="form-control" type="text" name="txtrepassword" placeholder="Nhập lại mật khẩu">
-                                    </div>
-                                    <div class="col-md-12">
-                                        <button type="submit" class="btn">Đăng ký</button>
-                                        <button type="reset" class="btn">Nhập lại</button>
+                    <div class="col-lg-6">
+                        <div class="login-form">
+                        <form action='loginadmin.php?do=login' method='POST'>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>E-mail / Username</label>
+                                    <input class="form-control" type="text" name="username" placeholder="E-mail / Username">
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Password</label>
+                                    <input class="form-control" type="password" name="password" placeholder="Password">
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" id="newaccount">
+                                        <label class="custom-control-label" for="newaccount">Keep me signed in</label>
                                     </div>
                                 </div>
-                            </form>
+                                <div class="col-md-12">
+                                    <button type='submit' name="dangnhap" value='Đăng nhập' class="btn">Đăng nhập</button>
+                                </div>
+                            </div>
+                        </form>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <?php
- 
- // Nếu không phải là sự kiện đăng ký thì không xử lý
- if (!isset($_POST['txtUsername'])){
-     die('');
- }
-  
- 
-       
- //Khai báo utf-8 để hiển thị được tiếng việt
-
-       
- //Lấy dữ liệu từ file dangky.php
- $username   = addslashes($_POST['txtUsername']);
- $password   = addslashes($_POST['txtPassword']);
- $email      = addslashes($_POST['txtEmail']);
- $SDT   = addslashes($_POST['txtSDT']);
- $repass   = addslashes($_POST['txtrepassword']);
- $dc   = addslashes($_POST['txtdc']);
- 
- //Kiểm tra người dùng đã nhập liệu đầy đủ chưa
- if (!$username || !$password || !$email || !$repass || !$SDT || !$dc)
- {
-     echo "Vui lòng nhập đầy đủ thông tin. <a href='javascript: history.go(-1)'>Trở lại</a>";
-     exit;
- }
-       
-     // Mã khóa mật khẩu
-    $password = md5($password);
-    $repass=md5($repass);
- //Kiểm tra tên đăng nhập này đã có người dùng chưa
- $kq=$db->exeQuery("select * from khachhang where tenkh= '$username' ");
- if ($kq != null){
-     echo "Tên đăng nhập này đã có người dùng. Vui lòng chọn tên đăng nhập khác. <a href='javascript: history.go(-1)'>Trở lại</a>";
-     exit;
- }
-       
- //Kiểm tra email có đúng định dạng hay không
- if (!preg_match("/^([a-zA-Z0-9])+([a-zA-Z0-9\._-])*@([a-zA-Z0-9_-])+\.[A-Za-z]{2,6}$/", $email))
- {
-     echo "Email này không hợp lệ. Vui long nhập email khác. <a href='javascript: history.go(-1)'>Trở lại</a>";
-     exit;
- }
-       
- //Kiểm tra email đã có người dùng chưa
- $kq1=$db->exeQuery("select * from khachhang where email= '$email' ");
- if ($kq1 != null)
- {
-     echo "Email này đã có người dùng. Vui lòng chọn Email khác. <a href='javascript: history.go(-1)'>Trở lại</a>";
-     exit;
- }
- //Kiểm tra dạng nhập vào của ngày sinh
- if ($repass != $password)
- {
-         echo "Mật khẩu nhập lại không đúng. Vui long nhập lại. <a href='javascript: history.go(-1)'>Trở lại</a>";
-         exit;
-     }
-       $string_1="kh";
-       $string_2=substr($username,3,6);
-       $string=$string_1.$string_2;
- //Lưu thông tin thành viên vào bảng
- try{
-    $pdh = new PDO("mysql:host=localhost; dbname=doanchuyennganh"  , "root"  , ""  );
-    $pdh->query("  set names 'utf8'"  );
-    }
-    catch(Exception $e){
-            echo $e->getMessage(); exit;
-    }
-    $sql="insert into khachhang(makh, email, matkhau, tenkh,diachi,dienthoai) values(:makh, :email, :matkhau, :tenkh,:diachi,:dienthoai) ";
-				$arr = array(":makh"=>$string,":email"=>$email,":matkhau"=>$password,":tenkh"=>$username,":diachi"=>$dc,":dienthoai"=>$SDT);
-				$stm= $pdh->prepare($sql);
-				$stm->execute($arr);
-				$n = $stm->rowCount();
-				$message = "Thêm thành công";
-                $error = "Lỗi thêm";
-                if ($n>0) echo "<script type='text/javascript'>alert('$message');</script>";
-                else echo  "<script type='text/javascript'>alert('$error');</script>";
-            ?>
- 
-
         <!-- Login End -->
         
         <!-- Footer Start -->

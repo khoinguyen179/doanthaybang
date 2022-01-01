@@ -45,7 +45,16 @@ foreach($sachs as $sach)
                                     </div>
                                     <div class="product-price">
                                     <h3><?php echo $formattedNum; ?><span>đ</span></h3>
-                                        <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Buy Now</a>
+                                        <a class="btn" href=""><i class="fa fa-shopping-cart"></i><form action="cart.php?mod=cart" method="post">
+                                            <fieldset>
+                                                <input type="hidden" name="tensanpham" value="<?php echo $sach['tensp'] ?>" />
+                                                <input type="hidden" name="sanpham_id" value="<?php echo $sach['masp'] ?>" />
+                                                <input type="hidden" name="giasanpham" value="<?php echo $sach['dongia'] ?>" />
+                                                <input type="hidden" name="hinhanh" value="<?php echo $sach['hinh'] ?>" />
+                                                <input type="hidden" name="soluong" value="1" />			
+                                                <input type="submit" name="themgiohang" value="Buy Now" class="button" />
+                                            </fieldset>
+                                        </form></a>
                                     </div>
                                 </div>
  <?php } ?>

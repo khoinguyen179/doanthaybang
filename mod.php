@@ -26,7 +26,7 @@ if (!defined("ROOT"))
 	}
 	elseif ($mod=="cart")
 	{
-		
+		include ROOT."/giohang.php";
 	}
 	elseif ($mod=="search")
 	{

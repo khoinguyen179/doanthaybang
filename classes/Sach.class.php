@@ -24,7 +24,7 @@ class Sach extends Db{
 	}
 	public function thongTin1Sach($ma)
 	{
-		$sql="select * from sanpham where mabv=?";
+		$sql="select * from sanpham where masp=?";
 		return $this->exeQuery($sql,array($ma));	
 	}	
 	public function thongTinNhieuSach($arr_ma)
@@ -68,6 +68,22 @@ class Sach extends Db{
 	{
 		$sql="select tieude,luotxem  from baiviet where tieude='%$search%'";
 		return $this->exeQuery($sql);	
+	}
+	public function them($ma,$ten,$donvitinh,$dongia,$hinh,$stttonkho,$maloai,$xuatsu,$luotxem,$thongtin)
+	{
+		$sql="INSERT INTO sanpham VALUES (?,?,?,?,?,?,?,?,?,?)";
+		return $this->exeNoneQuery($sql,array($ma,$ten,$donvitinh,$dongia,$hinh,$stttonkho,$maloai,$xuatsu,$luotxem,$thongtin));
+	}
+	public function sua($ma,$ten,$donvitinh,$dongia,$hinh,$luotxem,$stttonkho,$maloai,$xuatsu,$thongtin)
+	{
+		$sql="update loai set tenloai=?,tensp=?,donvitinh=?,dongia=?,hinh=?,luotxem=?,stttonkho=?,maloai=?,xuatsu=?,thongtin=? where maloai=?";
+		return $this->exeNoneQuery($sql,array($ten,$donvitinh,$dongia,$hinh,$luotxem,$stttonkho,$maloai,$xuatsu,$thongtin,$ma));
+	}
+	public function xoa($ma)
+	{
+		
+		$sql="delete from sanpham where masp=? ";
+		return $this->exeNoneQuery($sql,array($ma));
 	}
 }
 ?>
