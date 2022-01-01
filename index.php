@@ -482,9 +482,9 @@
                         <div class="footer-widget">
                             <h2>Get in Touch</h2>
                             <div class="contact-info">
-                                <p><i class="fa fa-map-marker"></i>123 E Store, Los Angeles, USA</p>
-                                <p><i class="fa fa-envelope"></i>email@example.com</p>
-                                <p><i class="fa fa-phone"></i>+123-456-7890</p>
+                                <p><i class="fa fa-map-marker"></i>123 Huỳnh Tấn Phát, Phú Xuân,Huyện Nhà Bè</p>
+                                <p><i class="fa fa-envelope"></i>knt@gmail.com</p>
+                                <p><i class="fa fa-phone"></i>+079-669-6969</p>
                             </div>
                         </div>
                     </div>

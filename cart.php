@@ -69,9 +69,9 @@
 
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                     <div class="navbar-nav mr-auto">
-                            <a href="index.php" class="nav-item nav-link active">Home</a>
+                            <a href="index.php" class="nav-item nav-link  ">Home</a>
                             <a href="product-list.php" class="nav-item nav-link">Products</a>
-                            <a href="cart.php" class="nav-item nav-link">Cart</a>
+                            <a href="cart.php" class="nav-item nav-link active">Cart</a>
                             <a href="my-account.php" class="nav-item nav-link">My Account</a>
                             <div class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">More Pages</a>
@@ -104,7 +104,7 @@
                 <div class="row align-items-center">
                     <div class="col-md-3">
                         <div class="logo">
-                            <a href="index.html">
+                            <a href="index.php">
                                 <img src="img/logo.png" alt="Logo">
                             </a>
                         </div>

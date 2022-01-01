@@ -68,17 +68,16 @@
                     </button>
 
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
-                        <div class="navbar-nav mr-auto">
-                        <a href="index.php" class="nav-item nav-link ">Home</a>
+                    <div class="navbar-nav mr-auto">
+                            <a href="index.php" class="nav-item nav-link active">Home</a>
                             <a href="product-list.php" class="nav-item nav-link">Products</a>
-                            <a href="cart.html" class="nav-item nav-link">Cart</a>
-                            <a href="checkout.html" class="nav-item nav-link">Checkout</a>
-                            <a href="my-account.html" class="nav-item nav-link">My Account</a>
+                            <a href="cart.php" class="nav-item nav-link">Cart</a>
+                            <a href="my-account.php" class="nav-item nav-link">My Account</a>
                             <div class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">More Pages</a>
                                 <div class="dropdown-menu">
-                                    <a href="wishlist.html" class="dropdown-item">Wishlist</a>
-                                    <a href="login.html" class="dropdown-item">Login & Register</a>
+                                    <a href="login.php" class="dropdown-item">Login</a>
+                                    <a href="register.php" class="dropdown-item">Register</a>
                                     <a href="contact.html" class="dropdown-item">Contact Us</a>
                                 </div>
                             </div>
@@ -105,7 +104,7 @@
                 <div class="row align-items-center">
                     <div class="col-md-3">
                         <div class="logo">
-                            <a href="index.html">
+                            <a href="index.php">
                                 <img src="img/logo.png" alt="Logo">
                             </a>
                         </div>
@@ -118,11 +117,8 @@
                     </div>
                     <div class="col-md-3">
                         <div class="user">
-                            <a href="wishlist.html" class="btn wishlist">
-                                <i class="fa fa-heart"></i>
-                                <span>(0)</span>
-                            </a>
-                            <a href="cart.html" class="btn cart">
+                             
+                            <a href="cart.php" class="btn cart">
                                 <i class="fa fa-shopping-cart"></i>
                                 <span>(0)</span>
                             </a>
@@ -286,12 +282,12 @@ foreach($sachs as $sach)
         <div class="brand">
             <div class="container-fluid">
                 <div class="brand-slider">
-                    <div class="brand-item"><img src="img/brand-1.png" alt=""></div>
-                    <div class="brand-item"><img src="img/brand-2.png" alt=""></div>
-                    <div class="brand-item"><img src="img/brand-3.png" alt=""></div>
-                    <div class="brand-item"><img src="img/brand-4.png" alt=""></div>
-                    <div class="brand-item"><img src="img/brand-5.png" alt=""></div>
-                    <div class="brand-item"><img src="img/brand-6.png" alt=""></div>
+                <div class="brand-item"><img src="img/logo1.png" alt=""></div>
+                    <div class="brand-item"><img src="img/logo2.jpg" alt=""></div>
+                    <div class="brand-item"><img src="img/logo3.jpg" alt=""></div>
+                    <div class="brand-item"><img src="img/logo4.png" alt=""></div>
+                    <div class="brand-item"><img src="img/logo5.png" alt=""></div>
+                    <div class="brand-item"><img src="img/logo6.jpg" alt=""></div>
                 </div>
             </div>
         </div>
