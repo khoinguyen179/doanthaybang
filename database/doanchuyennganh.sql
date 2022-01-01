@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1:3306
--- Thời gian đã tạo: Th1 01, 2022 lúc 03:18 AM
+-- Thời gian đã tạo: Th1 01, 2022 lúc 06:53 AM
 -- Phiên bản máy phục vụ: 5.7.31
 -- Phiên bản PHP: 7.3.21
 
@@ -153,6 +153,7 @@ CREATE TABLE IF NOT EXISTS `donhang` (
   `diachinhanhang` varchar(100) DEFAULT NULL,
   `trangthai` tinyint(1) NOT NULL DEFAULT '0',
   `ghichucuakh` text CHARACTER SET utf8 COLLATE utf8_unicode_ci,
+  `tongtien` int(11) DEFAULT NULL,
   PRIMARY KEY (`madh`),
   KEY `email` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -161,8 +162,8 @@ CREATE TABLE IF NOT EXISTS `donhang` (
 -- Đang đổ dữ liệu cho bảng `donhang`
 --
 
-INSERT INTO `donhang` (`madh`, `email`, `ThoiDiemDatHang`, `tennguoinhan`, `emailnguoinhan`, `sdtnguoinhan`, `diachinhanhang`, `trangthai`, `ghichucuakh`) VALUES
-('dh9680', 'khoi179@gmail.com', '2022-01-01 01:03:42', 'khoi', 'abc@gmail.com', '0564919813', 'nhà bè', 0, 'avb');
+INSERT INTO `donhang` (`madh`, `email`, `ThoiDiemDatHang`, `tennguoinhan`, `emailnguoinhan`, `sdtnguoinhan`, `diachinhanhang`, `trangthai`, `ghichucuakh`, `tongtien`) VALUES
+('dh9680', 'khoi179@gmail.com', '2022-01-01 01:03:42', 'khoi', 'abc@gmail.com', '0564919813', 'nhà bè', 1, 'avb', 610000);
 
 -- --------------------------------------------------------
 
@@ -309,15 +310,14 @@ CREATE TABLE IF NOT EXISTS `tbl_giohang` (
   `hinhanh` varchar(50) NOT NULL,
   `soluong` int(11) NOT NULL,
   PRIMARY KEY (`giohang_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 
 --
 -- Đang đổ dữ liệu cho bảng `tbl_giohang`
 --
 
 INSERT INTO `tbl_giohang` (`giohang_id`, `tensanpham`, `sanpham_id`, `giasanpham`, `hinhanh`, `soluong`) VALUES
-(8, 'Ráy NANA cẩm thạch', 'th10', '250000', 'RayNanaCmThach.png', 1),
-(9, 'Cá mún Panda', 'ca01', '10000', 'CaMunPanDa10k.png', 1);
+(11, 'Đèn thủy sinh ONF FLAT One', 'th02', '2200000', 'DenThuySinhONFFlatOne.png', 1);
 
 -- --------------------------------------------------------
 
