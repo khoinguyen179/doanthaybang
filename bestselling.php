@@ -6,32 +6,32 @@
 }
 </style>
 <?php
-$sachDB=new Sach();
+$sanphamDB=new Sanpham();
 if(isset($_GET['loai']))
 { 
-    //$tam=$db->exeQuery("select count(*) from sach where maloai=?",array($_GET['loai']),PDO::FETCH_NUM);
-    $tongSach=$sachDB->tongSoSach1Loai($_GET['loai']);
+    //$tam=$db->exeQuery("select count(*) from sanpham where maloai=?",array($_GET['loai']),PDO::FETCH_NUM);
+    $tongsanpham=$sanphamDB->tongSosanpham1Loai($_GET['loai']);
 }else
 {
-    //$tam=$db->exeQuery("select count(*) from sach",array(),PDO::FETCH_NUM);
-    $tongSach=$sachDB->tongSoSach();
+    //$tam=$db->exeQuery("select count(*) from sanpham",array(),PDO::FETCH_NUM);
+    $tongsanpham=$sanphamDB->tongSosanpham();
 }
-//$tongSach=$tam[0][0];
+//$tongsanpham=$tam[0][0];
 $page=isset($_GET['p'])?$_GET['p']:1;
-$bd=($page-1)*SACH_1_TRANG;
+$bd=($page-1)*sanpham_1_TRANG;
 
-$sachs=$db->exeQuery("select * from sanpham order by luotxem limit 9");
+$sanphams=$db->exeQuery("select * from sanpham order by luotxem limit 9");
 
-foreach($sachs as $sach)
+foreach($sanphams as $sanpham)
 {
-    $num=$sach['dongia'];
+    $num=$sanpham['dongia'];
     $formattedNum = number_format($num);
 ?>
 
                         <div class="col-md-4">
                                 <div class="product-item">
                                     <div class="product-title">
-                                        <a href="product-detail.php?mod=product&ac=catalog&id=<?php echo $sach["masp"];?>"><?php echo $sach['tensp'];?></a>
+                                        <a href="product-detail.php?mod=product&ac=catalog&id=<?php echo $sanpham["masp"];?>"><?php echo $sanpham['tensp'];?></a>
                                         <div class="ratting">
                                             <i class="fa fa-star"></i>
                                             <i class="fa fa-star"></i>
@@ -42,7 +42,7 @@ foreach($sachs as $sach)
                                     </div>
                                     <div class="product-image">
                                         <a href="product-detail.html">
-                                            <img src="img/sp/<?php echo $sach['hinh'];?>" alt="Product Image">
+                                            <img src="img/sp/<?php echo $sanpham['hinh'];?>" alt="Product Image">
                                         </a>
                                         <div class="product-action">
                                             <a href="#"><i class="fa fa-cart-plus"></i></a>
@@ -56,10 +56,10 @@ foreach($sachs as $sach)
 
                                         </i><form action="cart.php?mod=cart" method="post">
                                             <fieldset>
-                                                <input type="hidden" name="tensanpham" value="<?php echo $sach['tensp'] ?>" />
-                                                <input type="hidden" name="sanpham_id" value="<?php echo $sach['masp'] ?>" />
-                                                <input type="hidden" name="giasanpham" value="<?php echo $sach['dongia'] ?>" />
-                                                <input type="hidden" name="hinhanh" value="<?php echo $sach['hinh'] ?>" />
+                                                <input type="hidden" name="tensanpham" value="<?php echo $sanpham['tensp'] ?>" />
+                                                <input type="hidden" name="sanpham_id" value="<?php echo $sanpham['masp'] ?>" />
+                                                <input type="hidden" name="giasanpham" value="<?php echo $sanpham['dongia'] ?>" />
+                                                <input type="hidden" name="hinhanh" value="<?php echo $sanpham['hinh'] ?>" />
                                                 <input type="hidden" name="soluong" value="1" />			
                                                 <input type="submit" name="themgiohang" value="Buy Now" class="button" background=""/>
                                             </fieldset>

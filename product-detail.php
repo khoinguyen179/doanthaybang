@@ -38,8 +38,8 @@
         spl_autoload_register("myautoload");
         $db=new Db();
         $search 	= postIndex("search");
-        $sachDB=new Sach();
-        $sachs=$sachDB->hot();
+        $sanphamDB=new Sanpham();
+        $sanphams=$sanphamDB->hot();
     ?>
         <!-- Top bar Start -->
         <div class="top-bar">
@@ -150,18 +150,18 @@
                             </div>
 
                             <div class="row align-items-center product-slider product-slider-3">
-                            <?php   $sachs=$db->exeQuery("select tensp,masp,dongia,luotxem,hinh from sanpham order by masp asc  limit 5");
+                            <?php   $sanphams=$db->exeQuery("select tensp,masp,dongia,luotxem,hinh from sanpham order by masp asc  limit 5");
 
-foreach($sachs as $sach)
+foreach($sanphams as $sanpham)
 {
-    $num=$sach['dongia'];
+    $num=$sanpham['dongia'];
     $formattedNum = number_format($num);
 ?>
 
 <div class="col-lg-3">
                         <div class="product-item">
                             <div class="product-title">
-                                <a href="product-detail.php?mod=product&ac=catalog&id=<?php echo $sach["masp"];?>"><?php echo $sach['tensp'];?></a>
+                                <a href="product-detail.php?mod=product&ac=catalog&id=<?php echo $sanpham["masp"];?>"><?php echo $sanpham['tensp'];?></a>
                                 <div class="ratting">
                                     <i class="fa fa-star"></i>
                                     <i class="fa fa-star"></i>
@@ -172,7 +172,7 @@ foreach($sachs as $sach)
                             </div>
                             <div class="product-image">
                                 <a href="product-detail.html">
-                                    <img src="img/sp/<?php echo $sach['hinh'];?>" alt="Product Image">
+                                    <img src="img/sp/<?php echo $sanpham['hinh'];?>" alt="Product Image">
                                 </a>
                                 <div class="product-action">
                                     <a href="#"><i class="fa fa-cart-plus"></i></a>
@@ -220,17 +220,17 @@ foreach($sachs as $sach)
                         <div class="sidebar-widget widget-slider">
                             <div class="sidebar-slider normal-slider">
                                 
-                               <?php $sachs=$db->exeQuery("select tensp,masp,dongia,luotxem,hinh from sanpham order by luotxem asc  limit 5");
+                               <?php $sanphams=$db->exeQuery("select tensp,masp,dongia,luotxem,hinh from sanpham order by luotxem asc  limit 5");
 
-foreach($sachs as $sach)
+foreach($sanphams as $sanpham)
 {
-    $num=$sach['dongia'];
+    $num=$sanpham['dongia'];
     $formattedNum = number_format($num);
 ?>
 
 <div class="product-item">
                                     <div class="product-title">
-                                    <a href="product-detail.php?mod=product&ac=catalog&id=<?php echo $sach["masp"];?>"><?php echo $sach['tensp'];?></a>
+                                    <a href="product-detail.php?mod=product&ac=catalog&id=<?php echo $sanpham["masp"];?>"><?php echo $sanpham['tensp'];?></a>
                                         <div class="ratting">
                                             <i class="fa fa-star"></i>
                                             <i class="fa fa-star"></i>
@@ -241,7 +241,7 @@ foreach($sachs as $sach)
                                     </div>
                                     <div class="product-image">
                                         <a href="product-detail.html">
-                                            <img src="img/sp/<?php echo $sach['hinh'];?>" alt="Product Image">
+                                            <img src="img/sp/<?php echo $sanpham['hinh'];?>" alt="Product Image">
                                         </a>
                                         <div class="product-action">
                                             <a href="#"><i class="fa fa-cart-plus"></i></a>

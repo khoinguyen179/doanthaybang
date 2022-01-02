@@ -11,4 +11,4 @@ define("DB_PASS", "");
 define('ROOT', dirname(dirname(__FILE__) ) );
 //Thu muc tuyet doi truoc cua config; c:/wamp/www/lab/
 define("BASE_URL", "http://".$_SERVER['SERVER_NAME']."/doancn/");//dia chi website
-define("SACH_1_TRANG",9);
+define("sanpham_1_TRANG",9);

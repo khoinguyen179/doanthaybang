@@ -11,8 +11,8 @@ function xoa(ml)
 </script>
 <?php
 
-  include_once("../classes/Sach.class.php");
-  $spDB=new Sach;
+  include_once("../classes/Sanpham.class.php");
+  $spDB=new Sanpham;
   if(isset($_POST['btnAdd']))
   {
     $arrImg = array("image/png", "image/jpeg", "image/bmp");

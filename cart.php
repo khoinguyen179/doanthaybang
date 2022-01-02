@@ -39,7 +39,7 @@
        spl_autoload_register("myautoload");
        $db=new Db();
        //$search 	= postIndex("search");
-       $sachDB=new Sach();
+       $sanphamDB=new Sanpham();
     ?>
         <!-- Top bar Start -->
         <div class="top-bar">

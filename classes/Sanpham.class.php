@@ -1,33 +1,33 @@
 <?php
-class Sach extends Db{
+class Sanpham extends Db{
 	public function tatCa()
 	{
 		$sql="select * from sanpham";
 		return $this->exeQuery($sql);	
 	}
-	public function sach1Loai($maloai)
+	public function sanpham1Loai($maloai)
 	{
 		$sql="select * from sanpham where maloai=?";
 		return $this->exeQuery($sql,array($maloai));	
 	}
-	public function tongSoSach()
+	public function tongSosanpham()
 	{
 		$sql="select count(*) from sanpham";
 		$t=$this->exeQuery($sql,array(),PDO::FETCH_NUM);	
 		return $t[0][0];
 	}
-	public function tongSoSach1Loai($maloai)
+	public function tongSosanpham1Loai($maloai)
 	{
 		$sql="select count(*) from sanpham where maloai=?";
 		$t=$this->exeQuery($sql,array($maloai),PDO::FETCH_NUM);	
 		return $t[0][0];
 	}
-	public function thongTin1Sach($ma)
+	public function thongTin1sanpham($ma)
 	{
 		$sql="select * from sanpham where masp=?";
 		return $this->exeQuery($sql,array($ma));	
 	}	
-	public function thongTinNhieuSach($arr_ma)
+	public function thongTinNhieusanpham($arr_ma)
 	{
 		
 		for($i=0;$i<count($arr_ma);$i++)
@@ -37,21 +37,21 @@ class Sach extends Db{
 		
 		return $this->exeQuery($sql);	
 	}
-	public function giaSach($masach)
+	public function giasanpham($masanpham)
 	{
 		
 		
-		if(is_array($masach))
+		if(is_array($masanpham))
 		{
-			for($i=0;$i<count($masach);$i++)
-		$masach[$i]="'".$masach[$i]."'";
-		$dsma=implode(",",$masach);
-		$sql="select masach,gia from sanpham where mabaiviet in (".$dsma.")";
+			for($i=0;$i<count($masanpham);$i++)
+		$masanpham[$i]="'".$masanpham[$i]."'";
+		$dsma=implode(",",$masanpham);
+		$sql="select masanpham,gia from sanpham where mabaiviet in (".$dsma.")";
 		return $this->exeQuery($sql);
 		}else
 		{
 			$sql="select masp,dongia from sanpham where masp = ?";
-		return $this->exeQuery($sql,array($masach));
+		return $this->exeQuery($sql,array($masanpham));
 		}
 	}
 	public function hot()

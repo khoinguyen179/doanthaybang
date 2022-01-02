@@ -10,9 +10,7 @@
       }
       spl_autoload_register("myautoload");
       $db=new Db();
-      $search 	= postIndex("search");
-      $sachDB=new Sach();
-      $sachs=$sachDB->hot();
+      
   ?>
 <?php
 //Khai báo sử dụng session

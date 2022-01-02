@@ -53,9 +53,9 @@
  	}
 
  
- }elseif(isset($_POST['thanhtoan'])){
- 	
- }elseif(isset($_POST['thanhtoandangnhap'])){
+	}
+		
+	elseif(isset($_POST['thanhtoandangnhap'])){
 	$sql_lay_giohang = $db->exeQuery("SELECT * FROM tbl_giohang ORDER BY giohang_id DESC");
 	$i = 0;
 	$total = 0;

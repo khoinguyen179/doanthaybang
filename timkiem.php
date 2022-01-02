@@ -47,7 +47,7 @@
     spl_autoload_register("myautoload");
     $db=new Db();
     
-    $sachDB=new Sach();
+    $sachDB=new Sanpham();
     
 ?>
         <!-- Top bar Start -->

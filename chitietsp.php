@@ -14,30 +14,30 @@ if (!defined("ROOT"))
 $loai = getIndex("id");
 ?>
 <div class="productList">
-<?php $sachDB=new Sach();
+<?php $sanphamDB=new Sanpham();
 $cmts=new Comments();
 if(isset($_GET['loai']))
 { 
-    //$tam=$db->exeQuery("select count(*) from sach where maloai=?",array($_GET['loai']),PDO::FETCH_NUM);
-    $tongSach=$sachDB->tongSoSach1Loai($_GET['loai']);
+    //$tam=$db->exeQuery("select count(*) from sanpham where maloai=?",array($_GET['loai']),PDO::FETCH_NUM);
+    $tongsanpham=$sanphamDB->tongSosanpham1Loai($_GET['loai']);
 }else
 {
-    //$tam=$db->exeQuery("select count(*) from sach",array(),PDO::FETCH_NUM);
-    $tongSach=$sachDB->tongSoSach();
+    //$tam=$db->exeQuery("select count(*) from sanpham",array(),PDO::FETCH_NUM);
+    $tongsanpham=$sanphamDB->tongSosanpham();
 }
-//$tongSach=$tam[0][0];
+//$tongsanpham=$tam[0][0];
 $page=isset($_GET['p'])?$_GET['p']:1;
-$bd=($page-1)*SACH_1_TRANG;
+$bd=($page-1)*sanpham_1_TRANG;
 if(isset($_GET['loai']))
 { 
-    $sachs=$db->exeQuery("select mabv,tieude,mota, luotxem,hinh,ngaydang from baiviet where maloai=? limit $bd,".SACH_1_TRANG,array($_GET['loai']));
+    $sanphams=$db->exeQuery("select mabv,tieude,mota, luotxem,hinh,ngaydang from baiviet where maloai=? limit $bd,".sanpham_1_TRANG,array($_GET['loai']));
 }else
 {
-    $sachs=$db->exeQuery("select * from sanpham where masp= '$loai' ");
+    $sanphams=$db->exeQuery("select * from sanpham where masp= '$loai' ");
 }
-foreach($sachs as $sach)
+foreach($sanphams as $sanpham)
 {
-    $num=$sach['dongia'];
+    $num=$sanpham['dongia'];
     $formattedNum = number_format($num);
 ?>	
     
@@ -49,12 +49,12 @@ foreach($sachs as $sach)
                             <div class="row align-items-center">
                                 <div class="col-md-5">
                                     <div class="product-slider-single normal-slider">
-                                        <img src="img/sp/<?php echo $sach['hinh'];?>" alt="Product Image">
+                                        <img src="img/sp/<?php echo $sanpham['hinh'];?>" alt="Product Image">
                                     </div>
                                 </div>
                                 <div class="col-md-7">
                                     <div class="product-content">
-                                        <div class="title"><h2><?php echo $sach['tensp'];?></h2></div>
+                                        <div class="title"><h2><?php echo $sanpham['tensp'];?></h2></div>
                                         <div class="ratting">
                                             <i class="fa fa-star"></i>
                                             <i class="fa fa-star"></i>
@@ -81,10 +81,10 @@ foreach($sachs as $sach)
                                             <a class="btn" href="#"><i class="fa fa-shopping-bag"></i>
                                         <form action="cart.php?mod=cart" method="post">
                                             <fieldset>
-                                                <input type="hidden" name="tensanpham" value="<?php echo $sach['tensp'] ?>" />
-                                                <input type="hidden" name="sanpham_id" value="<?php echo $sach['masp'] ?>" />
-                                                <input type="hidden" name="giasanpham" value="<?php echo $sach['dongia'] ?>" />
-                                                <input type="hidden" name="hinhanh" value="<?php echo $sach['hinh'] ?>" />
+                                                <input type="hidden" name="tensanpham" value="<?php echo $sanpham['tensp'] ?>" />
+                                                <input type="hidden" name="sanpham_id" value="<?php echo $sanpham['masp'] ?>" />
+                                                <input type="hidden" name="giasanpham" value="<?php echo $sanpham['dongia'] ?>" />
+                                                <input type="hidden" name="hinhanh" value="<?php echo $sanpham['hinh'] ?>" />
                                                 <input type="hidden" name="soluong" value="1" />			
                                                 <input type="submit" name="themgiohang" value="Buy Now" class="button" />
                                             </fieldset>
@@ -114,13 +114,13 @@ foreach($sachs as $sach)
                                     <div id="description" class="container tab-pane active">
                                         <h4>Thông tin sản phẩm</h4>
                                         <p>
-                                            <?php echo $sach['thongtin'];?> 
+                                            <?php echo $sanpham['thongtin'];?> 
                                         </p>
                                     </div>
                                     <div id="specification" class="container tab-pane fade">
                                         <h4>Xuất sứ</h4>
                                         <ul>
-                                            <li><?php echo $sach['xuatsu'];?></li>
+                                            <li><?php echo $sanpham['xuatsu'];?></li>
                                         </ul>
                                     </div>
                                     <div id="reviews" class="container tab-pane fade">
@@ -176,7 +176,7 @@ foreach($sachs as $sach)
 			if (isset($_POST["submit"]))
 			{
 				$sql="insert into comment(masp, name, email, comment) values(:$loai, :hoten, :email, :comment) ";
-				$arr = array($sach['masp']=>$loai,":hoten"=>$_POST["hoten"],":email"=>$_POST["email"],":comment"=>$_POST["comment"]);
+				$arr = array($sanpham['masp']=>$loai,":hoten"=>$_POST["hoten"],":email"=>$_POST["email"],":comment"=>$_POST["comment"]);
 				$stm= $pdh->prepare($sql);
 				$stm->execute($arr);
 				$n = $stm->rowCount();
