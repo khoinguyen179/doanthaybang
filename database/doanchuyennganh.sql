@@ -2,10 +2,10 @@
 -- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
--- Máy chủ: 127.0.0.1:3306
--- Thời gian đã tạo: Th1 01, 2022 lúc 06:53 AM
--- Phiên bản máy phục vụ: 5.7.31
--- Phiên bản PHP: 7.3.21
+-- Host: 127.0.0.1:3306
+-- Generation Time: Jan 02, 2022 at 02:19 AM
+-- Server version: 5.7.31
+-- PHP Version: 7.3.21
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,14 +18,14 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Cơ sở dữ liệu: `doanchuyennganh`
+-- Database: `doanchuyennganh`
 --
 CREATE DATABASE IF NOT EXISTS `doanchuyennganh` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
 USE `doanchuyennganh`;
 
 DELIMITER $$
 --
--- Thủ tục
+-- Procedures
 --
 DROP PROCEDURE IF EXISTS `capnhatgia`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `capnhatgia` (IN `ma_sach` VARCHAR(15), IN `gia_moi` INT(10))  BEGIN
@@ -39,7 +39,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `admin`
+-- Table structure for table `admin`
 --
 
 DROP TABLE IF EXISTS `admin`;
@@ -50,10 +50,10 @@ CREATE TABLE IF NOT EXISTS `admin` (
   `hoten` varchar(100) CHARACTER SET utf8 NOT NULL,
   `quyen` int(1) NOT NULL COMMENT '1:  supper admin, 2:nhan viên, 3:...',
   PRIMARY KEY (`maadmin`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Đang đổ dữ liệu cho bảng `admin`
+-- Dumping data for table `admin`
 --
 
 INSERT INTO `admin` (`maadmin`, `username`, `matkhau`, `hoten`, `quyen`) VALUES
@@ -63,7 +63,7 @@ INSERT INTO `admin` (`maadmin`, `username`, `matkhau`, `hoten`, `quyen`) VALUES
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `chitietdonhang`
+-- Table structure for table `chitietdonhang`
 --
 
 DROP TABLE IF EXISTS `chitietdonhang`;
@@ -75,21 +75,20 @@ CREATE TABLE IF NOT EXISTS `chitietdonhang` (
   PRIMARY KEY (`mact`),
   KEY `masp` (`masp`),
   KEY `madh` (`madh`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=latin1;
 
 --
--- Đang đổ dữ liệu cho bảng `chitietdonhang`
+-- Dumping data for table `chitietdonhang`
 --
 
 INSERT INTO `chitietdonhang` (`mact`, `madh`, `masp`, `soluong`) VALUES
-(2, 'dh9680', 'th04', 4),
-(3, 'dh9680', 'th10', 2),
-(4, 'dh9680', 'ca01', 1);
+(28, 'dh471', 'th10', 1),
+(29, 'dh471', 'th04', 1);
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `chitiethd`
+-- Table structure for table `chitiethd`
 --
 
 DROP TABLE IF EXISTS `chitiethd`;
@@ -102,17 +101,10 @@ CREATE TABLE IF NOT EXISTS `chitiethd` (
   KEY `masach` (`masach`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Đang đổ dữ liệu cho bảng `chitiethd`
---
-
-INSERT INTO `chitiethd` (`mahd`, `masach`, `soluong`, `gia`) VALUES
-('abcd@yahoo.com1541841165', 'th03', 2, 76000);
-
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `comment`
+-- Table structure for table `comment`
 --
 
 DROP TABLE IF EXISTS `comment`;
@@ -127,7 +119,7 @@ CREATE TABLE IF NOT EXISTS `comment` (
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `comment`
+-- Dumping data for table `comment`
 --
 
 INSERT INTO `comment` (`id`, `masp`, `name`, `email`, `comment`, `ngaydang`) VALUES
@@ -139,7 +131,7 @@ INSERT INTO `comment` (`id`, `masp`, `name`, `email`, `comment`, `ngaydang`) VAL
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `donhang`
+-- Table structure for table `donhang`
 --
 
 DROP TABLE IF EXISTS `donhang`;
@@ -159,47 +151,34 @@ CREATE TABLE IF NOT EXISTS `donhang` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Đang đổ dữ liệu cho bảng `donhang`
+-- Dumping data for table `donhang`
 --
 
 INSERT INTO `donhang` (`madh`, `email`, `ThoiDiemDatHang`, `tennguoinhan`, `emailnguoinhan`, `sdtnguoinhan`, `diachinhanhang`, `trangthai`, `ghichucuakh`, `tongtien`) VALUES
-('dh9680', 'khoi179@gmail.com', '2022-01-01 01:03:42', 'khoi', 'abc@gmail.com', '0564919813', 'nhà bè', 1, 'avb', 610000);
+('dh471', 'khoi179@gmail.com', '2022-01-02 09:16:35', 'khoi', 'khoi179@gmail.com', '0795838595', 'nhà bè', 0, 'love', 500000);
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `hoadon`
+-- Table structure for table `hoadon`
 --
 
 DROP TABLE IF EXISTS `hoadon`;
 CREATE TABLE IF NOT EXISTS `hoadon` (
   `mahd` varchar(100) NOT NULL,
-  `email` varchar(50) NOT NULL DEFAULT '',
-  `ngayhd` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `tennguoinhan` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `diachinguoinhan` varchar(80) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `ngaynhan` date NOT NULL DEFAULT '0000-00-00',
-  `dienthoainguoinhan` varchar(10) NOT NULL DEFAULT '',
+  `ngaylapHD` timestamp NULL DEFAULT NULL,
+  `sotienHD` int(11) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `maAdmin` char(10) NOT NULL,
   PRIMARY KEY (`mahd`),
+  KEY `maadmin` (`maAdmin`),
   KEY `email` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Đang đổ dữ liệu cho bảng `hoadon`
---
-
-INSERT INTO `hoadon` (`mahd`, `email`, `ngayhd`, `tennguoinhan`, `diachinguoinhan`, `ngaynhan`, `dienthoainguoinhan`) VALUES
-('abcd@yahoo.com1541840637', 'abcd@yahoo.com', '2018-11-10 16:03:57', 'a', 'b', '2018-11-22', '1234567'),
-('abcd@yahoo.com1541840769', 'abcd@yahoo.com', '2018-11-10 16:06:09', 'a', 'b', '2018-11-22', '1234567'),
-('abcd@yahoo.com1541841019', 'abcd@yahoo.com', '2018-11-10 16:10:19', 'a', 'b', '2018-11-22', '1234567'),
-('abcd@yahoo.com1541841165', 'abcd@yahoo.com', '2018-11-10 16:12:45', 'a', 'g', '2018-11-15', '1234567'),
-('abcd@yahoo.com1541907522', 'abcd@yahoo.com', '2018-11-11 10:38:42', 'a', 'v', '2018-11-22', '132546457'),
-('abcd@yahoo.com1541909715', 'abcd@yahoo.com', '2018-11-11 11:15:15', 'a', 's', '2018-11-22', '5436546');
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `khachhang`
+-- Table structure for table `khachhang`
 --
 
 DROP TABLE IF EXISTS `khachhang`;
@@ -215,7 +194,7 @@ CREATE TABLE IF NOT EXISTS `khachhang` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Đang đổ dữ liệu cho bảng `khachhang`
+-- Dumping data for table `khachhang`
 --
 
 INSERT INTO `khachhang` (`makh`, `email`, `matkhau`, `tenkh`, `diachi`, `dienthoai`) VALUES
@@ -227,7 +206,7 @@ INSERT INTO `khachhang` (`makh`, `email`, `matkhau`, `tenkh`, `diachi`, `dientho
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `loai`
+-- Table structure for table `loai`
 --
 
 DROP TABLE IF EXISTS `loai`;
@@ -238,7 +217,7 @@ CREATE TABLE IF NOT EXISTS `loai` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Đang đổ dữ liệu cho bảng `loai`
+-- Dumping data for table `loai`
 --
 
 INSERT INTO `loai` (`maloai`, `tenloai`) VALUES
@@ -252,7 +231,7 @@ INSERT INTO `loai` (`maloai`, `tenloai`) VALUES
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `sanpham`
+-- Table structure for table `sanpham`
 --
 
 DROP TABLE IF EXISTS `sanpham`;
@@ -273,7 +252,7 @@ CREATE TABLE IF NOT EXISTS `sanpham` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Đang đổ dữ liệu cho bảng `sanpham`
+-- Dumping data for table `sanpham`
 --
 
 INSERT INTO `sanpham` (`masp`, `tensp`, `donvitinh`, `dongia`, `hinh`, `stttonkho`, `maloai`, `xuatsu`, `luotxem`, `thongtin`) VALUES
@@ -281,7 +260,6 @@ INSERT INTO `sanpham` (`masp`, `tensp`, `donvitinh`, `dongia`, `hinh`, `stttonkh
 ('ca02', 'Cá Neon Hoàng đế', 'con', 25000, 'CaNeonHoangDe25k.png', 'tk02', 'ca', 'Nước ngoài', 20102, 'Tổ tiên của loài cá này sống ở Columbia, miền bắc Nam Mỹ, nhưng loài cá này được sinh sản và nuôi dưỡng tại một trang trại cá nổi tiếng, và những con cá neon này hiện sống trong nhiều bể cá trên khắp thế giới.'),
 ('ca03', 'Cá phượng hoàng ngũ sắc', 'con', 80000, 'CaPhuongHoangNguSac80k.png', 'tk02', 'ca', 'Nước ngoài', 19475, 'Đây là giống cá cảnh thuộc dòng chili – một trong những loại cá cảnh được nuôi rất phổ biến trong các hồ thủy sinh hiện nay. Giống cá này được rất nhiều người chơi cá cảnh yêu thích. Bởi nó có màu sắc rất đẹp và bắt mắt. Đặc biệt, so với các loài cá khác thì cá ngũ sắc lại rất dễ nuôi và chăm sóc.'),
 ('ca04', 'Cá thủy tinh Ấn Độ', 'con', 30000, 'CaThuyTinhAnDo30k.png', 'tk01', 'ca', 'Nước ngoài', 22475, 'Tên tiếng Latin: Parambassis ranga  - Nhiệt độ: 20 - 20 độ C  - pH: 6,5 - 8  - Kích thước trưởng thành: 7cm   - Nguồn gốc: Cá Thuỷ Tinh Ấn Độ là một loài cá nước ngọt thuộc họ cá thủy tinh Asiatic Ambassidae có nguồn gốc từ một khu vực của Nam Á từ Pakistan đến Malaysia.'),
-('hl1', 'Hao Le', 'thằng', 1000000, '94120839_215647936402081_4119244326901383168_n.png', 'tk01', 'ml', 'Đồng Tháp', 0, 'Đẹp trai, học giỏi, độc thân, yếu.'),
 ('th01', 'Máy lọc XBL', 'cái', 310000, 'LocXBL.jpg', 'tk02', 'ml', 'VIệt Nam', 13451, 'Chất liệu: Nhựa Tương thích: Bể nước ngọt và mặn Lưu lượng: 500 lít/h Công suất: 7W Cường độ âm thanh: <35dB'),
 ('th02', 'Đèn thủy sinh ONF FLAT One', 'cái', 2200000, 'DenThuySinhONFFlatOne.png', 'tk02', 'den', 'Nước ngoài', 23669, 'Phạm vi quang phổ ngắn hơn 3000k tới 6500k Hiệu chỉnh ánh sáng theo chu kì như một ngày bình thường của thực vật ngoài tự nhiên từ thấp lên cao. Chế độ tắt mở đèn sáng dần và tối dần không như phiên bản cũ tắt mở dột ngột khiến cá, tép bên trong hồ thủy sinh bị hoảng loạn. Sử dụng chung app với Flat nano+ Bạn không cần bận tâm tới vấn đề mất điện bởi bộ nhớ của đèn đã được cải tiến so với bản 1, đèn sẽ tự động nhớ lại các thông số cài đặt của bạn ngay cả khi mất điện.'),
 ('th03', 'Đèn thủy sinh ONF FLAT One cao cấp', 'cái', 9500000, 'DenThuySinhCaoCapONFFlatOne.png', 'tk02', 'den', 'Việt Nam', 16228, 'Đèn LED thủy sinh ONF FlatOne Plus 90 là bản cải tiến từ người anh em tiền nhiệm Flat One 90 , sản phẩm cao cấp được bình chọn là chiếc đèn có mẫu thiết kế đẹp nhất trong 5 năm liền tại Reddot Award 2016 . Phiên bản Flat One Plus 90 được trình làng vào đầu năm 2020 , hứa hẹn là sản phẩm được giới người chơi thủy sinh lựa chọn cho bể thủy sinh của mình .'),
@@ -298,7 +276,7 @@ INSERT INTO `sanpham` (`masp`, `tensp`, `donvitinh`, `dongia`, `hinh`, `stttonkh
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `tbl_giohang`
+-- Table structure for table `tbl_giohang`
 --
 
 DROP TABLE IF EXISTS `tbl_giohang`;
@@ -310,19 +288,12 @@ CREATE TABLE IF NOT EXISTS `tbl_giohang` (
   `hinhanh` varchar(50) NOT NULL,
   `soluong` int(11) NOT NULL,
   PRIMARY KEY (`giohang_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
-
---
--- Đang đổ dữ liệu cho bảng `tbl_giohang`
---
-
-INSERT INTO `tbl_giohang` (`giohang_id`, `tensanpham`, `sanpham_id`, `giasanpham`, `hinhanh`, `soluong`) VALUES
-(11, 'Đèn thủy sinh ONF FLAT One', 'th02', '2200000', 'DenThuySinhONFFlatOne.png', 1);
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `tonkho`
+-- Table structure for table `tonkho`
 --
 
 DROP TABLE IF EXISTS `tonkho`;
@@ -337,7 +308,7 @@ CREATE TABLE IF NOT EXISTS `tonkho` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Đang đổ dữ liệu cho bảng `tonkho`
+-- Dumping data for table `tonkho`
 --
 
 INSERT INTO `tonkho` (`stttonkho`, `soluongnhap`, `soluongxuat`, `tondauky`, `toncuoiky`, `soluongton`) VALUES
@@ -350,37 +321,38 @@ INSERT INTO `tonkho` (`stttonkho`, `soluongnhap`, `soluongxuat`, `tondauky`, `to
 ('tk07', 0, 0, 0, 0, 0);
 
 --
--- Các ràng buộc cho các bảng đã đổ
+-- Constraints for dumped tables
 --
 
 --
--- Các ràng buộc cho bảng `chitietdonhang`
+-- Constraints for table `chitietdonhang`
 --
 ALTER TABLE `chitietdonhang`
   ADD CONSTRAINT `madh` FOREIGN KEY (`madh`) REFERENCES `donhang` (`madh`),
   ADD CONSTRAINT `masp` FOREIGN KEY (`masp`) REFERENCES `sanpham` (`masp`);
 
 --
--- Các ràng buộc cho bảng `chitiethd`
+-- Constraints for table `chitiethd`
 --
 ALTER TABLE `chitiethd`
   ADD CONSTRAINT `chitiethd_ibfk_1` FOREIGN KEY (`mahd`) REFERENCES `hoadon` (`mahd`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `chitiethd_ibfk_2` FOREIGN KEY (`masach`) REFERENCES `sanpham` (`masp`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Các ràng buộc cho bảng `donhang`
+-- Constraints for table `donhang`
 --
 ALTER TABLE `donhang`
   ADD CONSTRAINT `email` FOREIGN KEY (`email`) REFERENCES `khachhang` (`email`);
 
 --
--- Các ràng buộc cho bảng `hoadon`
+-- Constraints for table `hoadon`
 --
 ALTER TABLE `hoadon`
-  ADD CONSTRAINT `hoadon_ibfk_1` FOREIGN KEY (`email`) REFERENCES `khachhang` (`email`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `hoadon_ibfk_1` FOREIGN KEY (`email`) REFERENCES `khachhang` (`email`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `maadmin` FOREIGN KEY (`maAdmin`) REFERENCES `admin` (`maadmin`);
 
 --
--- Các ràng buộc cho bảng `sanpham`
+-- Constraints for table `sanpham`
 --
 ALTER TABLE `sanpham`
   ADD CONSTRAINT `sanpham_ibfk_1` FOREIGN KEY (`stttonkho`) REFERENCES `tonkho` (`stttonkho`) ON UPDATE CASCADE,
